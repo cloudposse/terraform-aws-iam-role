@@ -15,5 +15,5 @@ output "arn" {
 
 output "policy" {
   value       = "${module.aggregated_policy.result_document}"
-  description = "Role policy document in json format. Outputs always independent of `enabled` variables"
+  description = "Role policy document in json format. Outputs always, independent of `enabled` variable"
 }
