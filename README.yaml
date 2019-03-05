@@ -19,8 +19,8 @@ github_repo: cloudposse/terraform-aws-iam-role
 # Badges to display
 badges:
   - name: "Build Status"
-    image: "https://travis-ci.org/cloudposse/terraform-aws-iam-chamber-s3-role.svg?branch=master"
-    url: "https://travis-ci.org/cloudposse/terraform-aws-iam-chamber-s3-role"
+    image: "https://travis-ci.org/cloudposse/terraform-aws-iam-role.svg?branch=master"
+    url: "https://travis-ci.org/cloudposse/terraform-aws-iam-role"
   - name: "Latest Release"
     image: "https://img.shields.io/github/release/cloudposse/terraform-aws-iam-role.svg"
     url: "https://github.com/cloudposse/terraform-aws-iam-role/releases/latest"
