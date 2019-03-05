@@ -13,6 +13,11 @@ output "role_arn" {
   description = "The Amazon Resource Name (ARN) specifying the role"
 }
 
+output "role_policy" {
+  value       = "${module.role.policy}"
+  description = "The Amazon Resource Name (ARN) specifying the role"
+}
+
 output "bucket_domain_name" {
   value       = "${module.bucket.bucket_domain_name}"
   description = "FQDN of bucket"

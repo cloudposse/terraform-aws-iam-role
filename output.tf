@@ -12,3 +12,8 @@ output "arn" {
   value       = "${join("", aws_iam_role.default.*.arn)}"
   description = "The Amazon Resource Name (ARN) specifying the role"
 }
+
+output "policy" {
+  value       = "${module.aggregated_policy.result_document}"
+  description = "Role policy document in json format. Outputs always independent of `enabled` variables"
+}

@@ -126,6 +126,7 @@ The [`example`](./example) directory contains complete working examples with var
 | arn | The Amazon Resource Name (ARN) specifying the role |
 | id | The stable and unique string identifying the role |
 | name | The name of the IAM role created |
+| policy | Role policy document in json format. Outputs always independent of `enabled` variables |
 
 
 
