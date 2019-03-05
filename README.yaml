@@ -81,7 +81,7 @@ usage: |-
     }
 
     module "role" {
-      source     = "../"
+      source     = "git::https://github.com/cloudposse/terraform-aws-iam-role.git?ref=master"
 
       enabled    = "true"
       namespace = "cp"
