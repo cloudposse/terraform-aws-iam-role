@@ -35,7 +35,7 @@ output "bucket_arn" {
 
 output "user_enabled" {
   value       = "${module.bucket.user_enabled}"
-  description = "Is user creation enabled"
+  description = "Flag used to toggle user creation"
 }
 
 output "user_name" {
