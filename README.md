@@ -8,6 +8,10 @@
 
 A Terraform module that creates IAM role with provided JSON IAM polices documents.
 
+<aside class="warning">
+You must replace `meowmeowmeow` with your personal API key.
+</aside>
+
 
 ---
 
