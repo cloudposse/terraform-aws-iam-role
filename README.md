@@ -8,9 +8,10 @@
 
 A Terraform module that creates IAM role with provided JSON IAM polices documents.
 
-<div class="extended-markdown tip border rounded-1 mb-4 p-3 border-blue bg-blue-light">
-<p><strong>Tip:</strong> GitHub automatically creates links when valid URLs are written in a comment. For more information, see "<a href="/en/articles/autolinked-references-and-urls">Autolinked references and URLS</a>."</p>
-</div>
+#### Warning
+
+If `var.enabled` set `false` the module can be used as [IAM Policy Document Aggregator](https://github.com/cloudposse/terraform-aws-iam-policy-document-aggregator)
+because [`output.policy`](https://github.com/cloudposse/terraform-aws-iam-role/tree/init#outputs) always aggregates [`var.policy_documents`](https://github.com/cloudposse/terraform-aws-iam-role/tree/init#inputs)
 
 
 ---
