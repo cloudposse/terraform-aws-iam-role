@@ -10,8 +10,9 @@ A Terraform module that creates IAM role with provided JSON IAM polices document
 
 #### Warning
 
-If `var.enabled` set `false` the module can be used as [IAM Policy Document Aggregator](https://github.com/cloudposse/terraform-aws-iam-policy-document-aggregator)
+* If `var.enabled` set `false` the module can be used as [IAM Policy Document Aggregator](https://github.com/cloudposse/terraform-aws-iam-policy-document-aggregator)
 because [`output.policy`](https://github.com/cloudposse/terraform-aws-iam-role/tree/init#outputs) always aggregates [`var.policy_documents`](https://github.com/cloudposse/terraform-aws-iam-role/tree/init#inputs)
+* List size [`var.policy_documents`](https://github.com/cloudposse/terraform-aws-iam-role/tree/init#inputs) [limited to 10](https://github.com/cloudposse/terraform-aws-iam-policy-document-aggregator#inputs)
 
 
 ---
