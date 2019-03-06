@@ -40,9 +40,9 @@ related:
 description: |-
   A Terraform module that creates IAM role with provided JSON IAM polices documents.
 
-  <Warning>
-  *bar*
-  </Warning>
+  <div class="extended-markdown tip border rounded-1 mb-4 p-3 border-blue bg-blue-light">
+  <p><strong>Tip:</strong> GitHub automatically creates links when valid URLs are written in a comment. For more information, see "<a href="/en/articles/autolinked-references-and-urls">Autolinked references and URLS</a>."</p>
+  </div>
 
 # How to use this project
 usage: |-
