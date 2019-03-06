@@ -3,7 +3,7 @@
 
 [![Cloud Posse][logo]](https://cpco.io/homepage)
 
-# terraform-aws-iam-role [![Build Status](https://travis-ci.org/cloudposse/terraform-aws-iam-role.svg?branch=master)](https://travis-ci.org/cloudposse/terraform-aws-iam-role) [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-iam-role.svg)](https://github.com/cloudposse/terraform-aws-iam-role/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
+# terraform-aws-iam-role [![Build Status](https://g.codefresh.io/api/badges/pipeline/cloudposse/cloudposse%2Fterraform-aws-iam-role%2Flint?type=cf-1)](https://g.codefresh.io/public/accounts/cloudposse/pipelines/cloudposse/terraform-aws-iam-role/lint) [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-iam-role.svg)](https://github.com/cloudposse/terraform-aws-iam-role/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 
 
 A Terraform module that creates IAM role with provided JSON IAM polices documents.
