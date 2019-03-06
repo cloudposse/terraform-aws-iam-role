@@ -1,0 +1,114 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name: terraform-aws-iam-role
+
+# Logo for this project
+#logo: docs/logo.png
+
+# License of this project
+license: "APACHE2"
+
+# Canonical GitHub repo
+github_repo: cloudposse/terraform-aws-iam-role
+
+# Badges to display
+badges:
+  - name: "Build Status"
+    image: "https://travis-ci.org/cloudposse/terraform-aws-iam-role.svg?branch=master"
+    url: "https://travis-ci.org/cloudposse/terraform-aws-iam-role"
+  - name: "Latest Release"
+    image: "https://img.shields.io/github/release/cloudposse/terraform-aws-iam-role.svg"
+    url: "https://github.com/cloudposse/terraform-aws-iam-role/releases/latest"
+  - name: "Slack Community"
+    image: "https://slack.cloudposse.com/badge.svg"
+    url: "https://slack.cloudposse.com"
+
+related:
+  - name: "terraform-aws-iam-policy-document-aggregator"
+    description: "Terraform module to aggregate multiple IAM policy documents into single policy document"
+    url: "https://github.com/cloudposse/terraform-aws-iam-policy-document-aggregator"
+  - name: "terraform-aws-iam-chamber-s3-role"
+    description: "Terraform module to provision an IAM role with configurable permissions to access S3 as chamber backend"
+    url: "https://github.com/cloudposse/terraform-aws-iam-chamber-s3-role"
+
+# Short description of this project
+description: |-
+  A Terraform module that creates IAM role with provided JSON IAM polices documents.
+
+  #### Warning
+
+  * If `var.enabled` set `false` the module can be used as [IAM Policy Document Aggregator](https://github.com/cloudposse/terraform-aws-iam-policy-document-aggregator)
+  because [`output.policy`](https://github.com/cloudposse/terraform-aws-iam-role/tree/init#outputs) always aggregates [`var.policy_documents`](https://github.com/cloudposse/terraform-aws-iam-role/tree/init#inputs)
+  * List size [`var.policy_documents`](https://github.com/cloudposse/terraform-aws-iam-role/tree/init#inputs) [limited to 10](https://github.com/cloudposse/terraform-aws-iam-policy-document-aggregator#inputs)
+
+# How to use this project
+usage: |-
+  This example creates a role with the name `cp-prod-app` with permission to grant read-write access to S3 bucket,
+  and gives permission to the entities specified in `principals_arns` to assume the role.
+
+  ```hcl
+
+    data "aws_iam_policy_document" "resource_full_access" {
+      statement {
+        sid       = "FullAccess"
+        effect    = "Allow"
+        resources = ["arn:aws:s3:::bucketname/path/*"]
+
+        actions = [
+          "s3:PutObject",
+          "s3:PutObjectAcl",
+          "s3:GetObject",
+          "s3:DeleteObject",
+          "s3:ListBucket",
+          "s3:ListBucketMultipartUploads",
+          "s3:GetBucketLocation",
+          "s3:AbortMultipartUpload",
+        ]
+      }
+    }
+
+    data "aws_iam_policy_document" "base" {
+      statement {
+        sid = "BaseAccess"
+
+        actions = [
+          "s3:ListBucket",
+          "s3:ListBucketVersions",
+        ]
+
+        resources = ["arn:aws:s3:::bucketname"]
+        effect    = "Allow"
+      }
+    }
+
+    module "role" {
+      source     = "git::https://github.com/cloudposse/terraform-aws-iam-role.git?ref=master"
+
+      enabled    = "true"
+      namespace = "cp"
+      stage     = "prod"
+      name      = "app"
+
+      principals_arns = ["arn:aws:iam::123456789012:role/workers"]
+      policy_documents = [
+        "${data.aws_iam_policy_document.resource_full_access.json}",
+        "${data.aws_iam_policy_document.base.json}",
+      ]
+    }
+  ```
+
+  ### Additional Examples
+  The [`example`](./example) directory contains complete working examples with variations of how to use the module.
+
+include:
+  - "docs/terraform.md"
+
+# Contributors to this project
+contributors:
+  - name: "Igor Rodionov"
+    github: "goruha"
