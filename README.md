@@ -94,6 +94,9 @@ and gives permission to the entities specified in `principals_arns` to assume th
     stage     = "prod"
     name      = "app"
 
+    policy_description = "Allow S3 FullAccess"
+    role_description   = "IAM role with permissions to perform actions on S3 resources"
+
     principals_arns = ["arn:aws:iam::123456789012:role/workers"]
     policy_documents = [
       "${data.aws_iam_policy_document.resource_full_access.json}",
@@ -120,8 +123,10 @@ The [`example`](./example) directory contains complete working examples with var
 | max_session_duration | The maximum session duration (in seconds) for the role. Can have a value from 1 hour to 12 hours | string | `3600` | no |
 | name | Name (e.g. `app` or `chamber`) | string | - | yes |
 | namespace | Namespace (e.g. `cp` or `cloudposse`) | string | - | yes |
+| policy_description | The description of the IAM policy that is visible in the IAM policy manager | string | - | yes |
 | policy_documents | List of JSON IAM policy documents | list | `<list>` | no |
 | principals_arns | List of ARNs to allow assuming the role. Could be AWS services or accounts, Kops nodes, IAM users or groups | list | - | yes |
+| role_description | The description of the IAM role that is visible in the IAM role manager | string | - | yes |
 | stage | Stage (e.g. `prod`, `dev`, `staging`) | string | - | yes |
 | tags | Additional tags (e.g. map(`BusinessUnit`,`XYZ`) | map | `<map>` | no |
 
@@ -270,11 +275,13 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 
 ### Contributors
 
-|  [![Igor Rodionov][goruha_avatar]][goruha_homepage]<br/>[Igor Rodionov][goruha_homepage] |
-|---|
+|  [![Igor Rodionov][goruha_avatar]][goruha_homepage]<br/>[Igor Rodionov][goruha_homepage] | [![Oscar Sullivan][osulli_avatar]][osulli_homepage]<br/>[Oscar Sullivan][osulli_homepage] |
+|---|---|
 
   [goruha_homepage]: https://github.com/goruha
   [goruha_avatar]: https://github.com/goruha.png?size=150
+  [osulli_homepage]: https://github.com/osulli
+  [osulli_avatar]: https://github.com/osulli.png?size=150
 
 
 

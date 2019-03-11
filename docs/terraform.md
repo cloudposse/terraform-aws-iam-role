@@ -8,8 +8,10 @@
 | max_session_duration | The maximum session duration (in seconds) for the role. Can have a value from 1 hour to 12 hours | string | `3600` | no |
 | name | Name (e.g. `app` or `chamber`) | string | - | yes |
 | namespace | Namespace (e.g. `cp` or `cloudposse`) | string | - | yes |
+| policy_description | The description of the IAM policy that is visible in the IAM policy manager | string | - | yes |
 | policy_documents | List of JSON IAM policy documents | list | `<list>` | no |
 | principals_arns | List of ARNs to allow assuming the role. Could be AWS services or accounts, Kops nodes, IAM users or groups | list | - | yes |
+| role_description | The description of the IAM role that is visible in the IAM role manager | string | - | yes |
 | stage | Stage (e.g. `prod`, `dev`, `staging`) | string | - | yes |
 | tags | Additional tags (e.g. map(`BusinessUnit`,`XYZ`) | map | `<map>` | no |
 
