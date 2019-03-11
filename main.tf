@@ -39,7 +39,7 @@ module "aggregated_policy" {
 resource "aws_iam_policy" "default" {
   count       = "${var.enabled == "true" ? 1 : 0}"
   name        = "${module.label.id}"
-  description = "Allow S3 actions"
+  description = "${var.policy_description}"
   policy      = "${module.aggregated_policy.result_document}"
 }
 
@@ -47,7 +47,7 @@ resource "aws_iam_role" "default" {
   count                = "${var.enabled == "true" ? 1 : 0}"
   name                 = "${module.label.id}"
   assume_role_policy   = "${data.aws_iam_policy_document.assume_role.json}"
-  description          = "IAM Role with permissions to perform actions on S3 resources"
+  description          = "${var.role_description}"
   max_session_duration = "${var.max_session_duration}"
 }
 

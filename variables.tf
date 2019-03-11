@@ -52,3 +52,13 @@ variable "enabled" {
   description = "Set to `false` to prevent the module from creating any resources"
   default     = "true"
 }
+
+variable "role_description" {
+  type        = "string"
+  description = "The description of the IAM role that is visible in the IAM role manager"
+}
+
+variable "policy_description" {
+  type        = "string"
+  description = "The description of the IAM policy that is visible in the IAM policy manager"
+}
