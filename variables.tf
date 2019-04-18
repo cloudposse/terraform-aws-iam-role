@@ -31,7 +31,7 @@ variable "tags" {
   description = "Additional tags (e.g. map(`BusinessUnit`,`XYZ`)"
 }
 
-variable "principals_services_arns" {
+variable "principals_services" {
   type        = "list"
   default     = ["ec2.amazonaws.com"]
   description = "List of Services identifiers to allow assuming the role."
