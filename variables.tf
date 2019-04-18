@@ -31,9 +31,15 @@ variable "tags" {
   description = "Additional tags (e.g. map(`BusinessUnit`,`XYZ`)"
 }
 
+variable "principals_services_arns" {
+  type        = "list"
+  default     = ["ec2.amazonaws.com"]
+  description = "List of Services identifiers to allow assuming the role."
+}
+
 variable "principals_arns" {
   type        = "list"
-  description = "List of ARNs to allow assuming the role. Could be AWS services or accounts, Kops nodes, IAM users or groups"
+  description = "List of ARNs to allow assuming the role. Could be AWS accounts, Kops nodes, IAM users or groups"
 }
 
 variable "policy_documents" {
