@@ -32,7 +32,7 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 module "aggregated_policy" {
-  source           = "git::https://github.com/cloudposse/terraform-aws-iam-policy-document-aggregator.git?ref=tags/0.1.0"
+  source           = "git::https://github.com/cloudposse/terraform-aws-iam-policy-document-aggregator.git?ref=disable-validation"
   source_documents = ["${var.policy_documents}"]
 }
 
