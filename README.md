@@ -48,6 +48,11 @@ We literally have [*hundreds of terraform modules*][terraform_modules] that are 
 
 ## Usage
 
+
+**IMPORTANT:** The `master` branch is used in `source` just as an example. In your code, do not pin to `master` because there may be breaking changes between releases.
+Instead pin to the release tag (e.g. `?ref=tags/x.y.z`) of one of our [latest releases](https://github.com/cloudposse/terraform-aws-iam-role/releases).
+
+
 This example creates a role with the name `cp-prod-app` with permission to grant read-write access to S3 bucket,
 and gives permission to the entities specified in `principals_arns` to assume the role.
 
