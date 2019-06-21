@@ -1,5 +1,5 @@
 module "kms_key" {
-  source    = "git::https://github.com/cloudposse/terraform-aws-kms-key.git?ref=master"
+  source    = "git::https://github.com/rverma-nikiai/terraform-aws-kms-key.git?ref=master"
   namespace = "cp"
   stage     = "prod"
   name      = "app"
@@ -15,7 +15,7 @@ module "kms_key" {
 }
 
 module "bucket" {
-  source  = "git::https://github.com/cloudposse/terraform-aws-s3-bucket.git?ref=master"
+  source  = "git::https://github.com/rverma-nikiai/terraform-aws-s3-bucket.git?ref=master"
   enabled = "true"
 
   namespace = "cp"
