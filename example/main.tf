@@ -30,7 +30,7 @@ module "bucket" {
   user_enabled       = "false"
 
   sse_algorithm     = "aws:kms"
-  kms_master_key_id = "${module.kms_key.key_id}"
+  kms_master_key_id = module.kms_key.key_id
 }
 
 data "aws_iam_policy_document" "resource_full_access" {
@@ -61,7 +61,7 @@ data "aws_iam_policy_document" "base" {
       "s3:ListBucketVersions",
     ]
 
-    resources = ["${module.bucket.bucket_arn}"]
+    resources = [module.bucket.bucket_arn]
     effect    = "Allow"
   }
 }
@@ -77,7 +77,7 @@ module "role" {
   principals_arns = []
 
   policy_documents = [
-    "${data.aws_iam_policy_document.resource_full_access.json}",
-    "${data.aws_iam_policy_document.base.json}",
+    data.aws_iam_policy_document.resource_full_access.json,
+    data.aws_iam_policy_document.base.json,
   ]
 }
