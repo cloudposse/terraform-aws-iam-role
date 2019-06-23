@@ -32,7 +32,7 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 module "aggregated_policy" {
-  source           = "git::https://github.com/cloudposse/terraform-aws-iam-policy-document-aggregator.git?ref=master"
+  source           = "git::https://github.com/rverma-nikiai/terraform-aws-iam-policy-document-aggregator.git?ref=master"
   source_documents = var.policy_documents
 }
 
