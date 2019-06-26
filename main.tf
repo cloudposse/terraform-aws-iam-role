@@ -27,7 +27,11 @@ data "aws_iam_policy_document" "assume_role" {
     actions = ["sts:AssumeRole"]
 
     #principals = ["${merge(null_resource.principals.*.triggers, map())}"]
-    principals = [{type = "Service", identifiers = ["cloudformation.amazonaws.com"]}]
+    principals {
+      type = "Service"
+      identifiers = ["cloudformation.amazonaws.com"]
+    }
+    # [{type = "Service", identifiers = ["cloudformation.amazonaws.com"]}]
   }
 }
 
