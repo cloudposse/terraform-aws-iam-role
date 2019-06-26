@@ -9,15 +9,11 @@ module "label" {
   enabled    = "${var.enabled}"
 }
 
-locals {
-  services = ["${keys(var.principals)}"]
-}
-
 resource "null_resource" "principals" {
-  count = "${length(local.services)}"
+  count = "${length(keys(var.principals))}"
   triggers {
-    type = "${element(local.services, count.index)}"
-    identifiers = ["${var.principals[element(local.services, count.index)]}"]
+    type = "${element(keys(var.principals), count.index)}"
+    identifiers = ["${var.principals[element(keys(var.principals), count.index)]}"]
   }
 
   lifecycle {
