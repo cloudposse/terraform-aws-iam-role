@@ -11,14 +11,13 @@ module "label" {
 
 locals {
   services = ["${keys(var.principals)}"]
-  values = ["${values(var.principals)}"]
 }
 
 resource "null_resource" "principals" {
   count = "${length(var.principals)}"
   triggers {
     type = "${element(local.services, count.index)}"
-    identifiers = ["${element(local.values, count.index)}"]
+    identifiers = ["${lookup(var.principals, element(local.services, count.index))}"]
   }
 
   lifecycle {
