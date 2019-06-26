@@ -26,7 +26,7 @@ data "aws_iam_policy_document" "assume_role" {
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
 
-    principals = ["${null_resource.principals.*.triggers}"]
+    principals = ["${merge(null_resource.principals.*.triggers, map())}"]
   }
 }
 
