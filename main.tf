@@ -43,7 +43,7 @@ resource "aws_iam_policy" "default" {
 
 resource "aws_iam_role" "default" {
   count                = "${var.enabled == "true" ? 1 : 0}"
-  name                 = "${module.label.id}"
+  name                 = "${var.use_fullname == "true" ? module.label.id : module.label.name}"
   assume_role_policy   = "${module.aggregated_assume_policy.result_document}"
   description          = "${var.role_description}"
   max_session_duration = "${var.max_session_duration}"

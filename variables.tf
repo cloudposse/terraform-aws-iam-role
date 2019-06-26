@@ -13,6 +13,12 @@ variable "name" {
   description = "Name (e.g. `app` or `chamber`)"
 }
 
+variable "use_fullname" {
+  type        = "string"
+  default     = "true"
+  description = "Set 'true' to use `namespace-stage-name` for ecr repository name, else `name`"
+}
+
 variable "delimiter" {
   type        = "string"
   default     = "-"
