@@ -9,25 +9,29 @@ module "label" {
   enabled    = "${var.enabled}"
 }
 
+locals {
+  services = ["${keys(var.principals)}"]
+  values = ["${values(var.principals)}"]
+}
+
+resource "null_resource" "principals" {
+  count = "${length(var.principals)}"
+  triggers {
+    type = "${element(local.services, count.index)}"
+    identifiers = ["${element(local.values, count.index)}"]
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
 data "aws_iam_policy_document" "assume_role" {
   statement {
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
 
-    principals {
-      type        = "Service"
-      identifiers = ["${var.principals_services_arns}"]
-    }
-  }
-
-  statement {
-    effect  = "Allow"
-    actions = ["sts:AssumeRole"]
-
-    principals {
-      type        = "AWS"
-      identifiers = ["${var.principals_arns}"]
-    }
+    principals = ["${null_resource.principals.*.triggers}"]
   }
 }
 
