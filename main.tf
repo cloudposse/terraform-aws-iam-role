@@ -14,7 +14,7 @@ locals {
 }
 
 resource "null_resource" "principals" {
-  count = "${length(var.principals)}"
+  count = "${length(local.services)}"
   triggers {
     type = "${element(local.services, count.index)}"
     identifiers = ["${var.principals[element(local.services, count.index)]}"]
