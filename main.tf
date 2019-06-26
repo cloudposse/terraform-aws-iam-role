@@ -13,7 +13,7 @@ resource "null_resource" "principals" {
   count = "${length(keys(var.principals))}"
   triggers {
     type = "${element(keys(var.principals), count.index)}"
-    # identifiers = ["${var.principals[element(keys(var.principals), count.index)]}"]
+    identifiers = ["${var.principals[element(keys(var.principals), count.index)]}"]
   }
 
   lifecycle {
@@ -26,7 +26,8 @@ data "aws_iam_policy_document" "assume_role" {
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
 
-    principals = ["${merge(null_resource.principals.*.triggers, map())}"]
+    #principals = ["${merge(null_resource.principals.*.triggers, map())}"]
+    principals = [{type = "Service", identifiers = ["cloudformation.amazonaws.com"]}]
   }
 }
 
