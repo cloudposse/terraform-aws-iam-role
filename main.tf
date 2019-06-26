@@ -56,7 +56,7 @@ resource "aws_iam_role" "default" {
 }
 
 resource "aws_iam_role_policy_attachment" "default" {
-  count      = "${var.enabled == "true" && length(var.policy_documents) > 0- ? 1 : 0}"
+  count      = "${var.enabled == "true" && length(var.policy_documents) > 0 ? 1 : 0}"
   role       = "${aws_iam_role.default.name}"
   policy_arn = "${aws_iam_policy.default.arn}"
 }
