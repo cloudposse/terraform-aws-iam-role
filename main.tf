@@ -9,31 +9,25 @@ module "label" {
   enabled    = "${var.enabled}"
 }
 
-resource "null_resource" "principals" {
-  count = "${length(keys(var.principals))}"
-  triggers {
-    type = "${element(keys(var.principals), count.index)}"
-    #identifiers = ["${var.principals[element(keys(var.principals), count.index)]}"]
-  }
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
 data "aws_iam_policy_document" "assume_role" {
+  count = "${length(keys(var.principals))}"
+
   statement {
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
 
-    #principals = ["${merge(null_resource.principals.*.triggers, map())}"]
     principals {
-      type = "Service"
-      identifiers = ["cloudformation.amazonaws.com"]
+      type = "${element(keys(var.principals), count.index)}"
+      identifiers = ["${var.principals[element(keys(var.principals), count.index)]}"]
     }
-    # [{type = "Service", identifiers = ["cloudformation.amazonaws.com"]}]
   }
 }
+
+module "aggregated_assume_policy" {
+  source           = "git::https://github.com/cloudposse/terraform-aws-iam-policy-document-aggregator.git?ref=fix-empty-policy"
+  source_documents = ["${data.aws_iam_policy_document.assume_role.*.json}"]
+}
+
 
 module "aggregated_policy" {
   source           = "git::https://github.com/cloudposse/terraform-aws-iam-policy-document-aggregator.git?ref=fix-empty-policy"
@@ -50,7 +44,7 @@ resource "aws_iam_policy" "default" {
 resource "aws_iam_role" "default" {
   count                = "${var.enabled == "true" ? 1 : 0}"
   name                 = "${module.label.id}"
-  assume_role_policy   = "${data.aws_iam_policy_document.assume_role.json}"
+  assume_role_policy   = "${module.aggregated_assume_policy.result_document}"
   description          = "${var.role_description}"
   max_session_duration = "${var.max_session_duration}"
 }
