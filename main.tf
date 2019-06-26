@@ -13,7 +13,7 @@ resource "null_resource" "principals" {
   count = "${length(keys(var.principals))}"
   triggers {
     type = "${element(keys(var.principals), count.index)}"
-    identifiers = ["${var.principals[element(keys(var.principals), count.index)]}"]
+    #identifiers = ["${var.principals[element(keys(var.principals), count.index)]}"]
   }
 
   lifecycle {
