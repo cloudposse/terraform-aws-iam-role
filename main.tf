@@ -41,7 +41,7 @@ module "aggregated_policy" {
 }
 
 resource "aws_iam_policy" "default" {
-  count       = "${var.enabled == "true" ? 1 : 0}"
+  count       = "${var.enabled == "true" && length(var.policy_documents) > 0 ? 1 : 0}"
   name        = "${module.label.id}"
   description = "${var.policy_description}"
   policy      = "${module.aggregated_policy.result_document}"
@@ -56,7 +56,7 @@ resource "aws_iam_role" "default" {
 }
 
 resource "aws_iam_role_policy_attachment" "default" {
-  count      = "${var.enabled == "true" ? 1 : 0}"
+  count      = "${var.enabled == "true" && length(var.policy_documents) > 0- ? 1 : 0}"
   role       = "${aws_iam_role.default.name}"
   policy_arn = "${aws_iam_policy.default.arn}"
 }
