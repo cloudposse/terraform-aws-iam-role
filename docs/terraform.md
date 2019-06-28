@@ -10,11 +10,11 @@
 | namespace | Namespace (e.g. `cp` or `cloudposse`) | string | - | yes |
 | policy_description | The description of the IAM policy that is visible in the IAM policy manager | string | - | yes |
 | policy_documents | List of JSON IAM policy documents | list | `<list>` | no |
-| principals_arns | List of ARNs to allow assuming the role. Could be AWS accounts, Kops nodes, IAM users or groups | list | - | yes |
-| principals_services_arns | List of Services identifiers to allow assuming the role. | list | `<list>` | no |
+| principals | Map of service name as key and a list of ARNs to allow assuming the role as value. (e.g. map(`AWS`, list(`arn:aws:iam:::role/admin`))) | map | `<map>` | no |
 | role_description | The description of the IAM role that is visible in the IAM role manager | string | - | yes |
 | stage | Stage (e.g. `prod`, `dev`, `staging`) | string | - | yes |
 | tags | Additional tags (e.g. map(`BusinessUnit`,`XYZ`) | map | `<map>` | no |
+| use_fullname | Set 'true' to use `namespace-stage-name` for ecr repository name, else `name` | string | `true` | no |
 
 ## Outputs
 

@@ -74,7 +74,7 @@ module "role" {
   stage     = "prod"
   name      = "app"
 
-  principals_arns = []
+  principals = {}
 
   policy_documents = [
     "${data.aws_iam_policy_document.resource_full_access.json}",

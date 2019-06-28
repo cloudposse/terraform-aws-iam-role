@@ -39,7 +39,8 @@ variable "tags" {
 
 variable "principals" {
   type        = "map"
-  description = "List of ARNs to allow assuming the role. Could be AWS accounts, Kops nodes, IAM users or groups"
+  description = "Map of service name as key and a list of ARNs to allow assuming the role as value. (e.g. map(`AWS`, list(`arn:aws:iam:::role/admin`)))"
+  default     = {}
 }
 
 variable "policy_documents" {

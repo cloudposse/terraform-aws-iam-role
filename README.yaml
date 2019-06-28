@@ -97,7 +97,10 @@ usage: |-
       policy_description = "Allow S3 FullAccess"
       role_description   = "IAM role with permissions to perform actions on S3 resources"
 
-      principals_arns = ["arn:aws:iam::123456789012:role/workers"]
+      principals = {
+        AWS = ["arn:aws:iam::123456789012:role/workers"]
+      }
+      
       policy_documents = [
         "${data.aws_iam_policy_document.resource_full_access.json}",
         "${data.aws_iam_policy_document.base.json}",

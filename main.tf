@@ -17,20 +17,19 @@ data "aws_iam_policy_document" "assume_role" {
     actions = ["sts:AssumeRole"]
 
     principals {
-      type = "${element(keys(var.principals), count.index)}"
+      type        = "${element(keys(var.principals), count.index)}"
       identifiers = ["${var.principals[element(keys(var.principals), count.index)]}"]
     }
   }
 }
 
 module "aggregated_assume_policy" {
-  source           = "git::https://github.com/cloudposse/terraform-aws-iam-policy-document-aggregator.git?ref=fix-empty-policy"
+  source           = "git::https://github.com/cloudposse/terraform-aws-iam-policy-document-aggregator.git?ref=tags/0.1.2"
   source_documents = ["${data.aws_iam_policy_document.assume_role.*.json}"]
 }
 
-
 module "aggregated_policy" {
-  source           = "git::https://github.com/cloudposse/terraform-aws-iam-policy-document-aggregator.git?ref=fix-empty-policy"
+  source           = "git::https://github.com/cloudposse/terraform-aws-iam-policy-document-aggregator.git?ref=tags/0.1.2"
   source_documents = ["${var.policy_documents}"]
 }
 
