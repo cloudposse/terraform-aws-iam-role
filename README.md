@@ -105,7 +105,7 @@ and gives permission to the entities specified in `principals_arns` to assume th
     principals = {
       AWS = ["arn:aws:iam::123456789012:role/workers"]
     }
-    
+
     policy_documents = [
       "${data.aws_iam_policy_document.resource_full_access.json}",
       "${data.aws_iam_policy_document.base.json}",
