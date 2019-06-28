@@ -17,7 +17,7 @@ data "aws_iam_policy_document" "assume_role" {
     actions = ["sts:AssumeRole"]
 
     principals {
-      type        = "${element(keys(var.principals), count.index)}"
+      type = "${element(keys(var.principals), count.index)}"
       identifiers = ["${var.principals[element(keys(var.principals), count.index)]}"]
     }
   }
@@ -26,6 +26,14 @@ data "aws_iam_policy_document" "assume_role" {
 module "aggregated_assume_policy" {
   source           = "git::https://github.com/cloudposse/terraform-aws-iam-policy-document-aggregator.git?ref=tags/0.1.2"
   source_documents = ["${data.aws_iam_policy_document.assume_role.*.json}"]
+}
+
+resource "aws_iam_role" "default" {
+  count                = "${var.enabled == "true" ? 1 : 0}"
+  name                 = "${var.use_fullname == "true" ? module.label.id : module.label.name}"
+  assume_role_policy   = "${module.aggregated_assume_policy.result_document}"
+  description          = "${var.role_description}"
+  max_session_duration = "${var.max_session_duration}"
 }
 
 module "aggregated_policy" {
@@ -38,14 +46,6 @@ resource "aws_iam_policy" "default" {
   name        = "${module.label.id}"
   description = "${var.policy_description}"
   policy      = "${module.aggregated_policy.result_document}"
-}
-
-resource "aws_iam_role" "default" {
-  count                = "${var.enabled == "true" ? 1 : 0}"
-  name                 = "${var.use_fullname == "true" ? module.label.id : module.label.name}"
-  assume_role_policy   = "${module.aggregated_assume_policy.result_document}"
-  description          = "${var.role_description}"
-  max_session_duration = "${var.max_session_duration}"
 }
 
 resource "aws_iam_role_policy_attachment" "default" {
