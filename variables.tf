@@ -13,6 +13,12 @@ variable "name" {
   description = "Name (e.g. `app` or `chamber`)"
 }
 
+variable "use_fullname" {
+  type        = "string"
+  default     = "true"
+  description = "Set 'true' to use `namespace-stage-name` for ecr repository name, else `name`"
+}
+
 variable "delimiter" {
   type        = "string"
   default     = "-"
@@ -31,15 +37,10 @@ variable "tags" {
   description = "Additional tags (e.g. map(`BusinessUnit`,`XYZ`)"
 }
 
-variable "principals_services_arns" {
-  type        = "list"
-  default     = ["ec2.amazonaws.com"]
-  description = "List of Services identifiers to allow assuming the role."
-}
-
-variable "principals_arns" {
-  type        = "list"
-  description = "List of ARNs to allow assuming the role. Could be AWS accounts, Kops nodes, IAM users or groups"
+variable "principals" {
+  type        = "map"
+  description = "Map of service name as key and a list of ARNs to allow assuming the role as value. (e.g. map(`AWS`, list(`arn:aws:iam:::role/admin`)))"
+  default     = {}
 }
 
 variable "policy_documents" {

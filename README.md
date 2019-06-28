@@ -102,7 +102,10 @@ and gives permission to the entities specified in `principals_arns` to assume th
     policy_description = "Allow S3 FullAccess"
     role_description   = "IAM role with permissions to perform actions on S3 resources"
 
-    principals_arns = ["arn:aws:iam::123456789012:role/workers"]
+    principals = {
+      AWS = ["arn:aws:iam::123456789012:role/workers"]
+    }
+
     policy_documents = [
       "${data.aws_iam_policy_document.resource_full_access.json}",
       "${data.aws_iam_policy_document.base.json}",
@@ -130,11 +133,11 @@ The [`example`](./example) directory contains complete working examples with var
 | namespace | Namespace (e.g. `cp` or `cloudposse`) | string | - | yes |
 | policy_description | The description of the IAM policy that is visible in the IAM policy manager | string | - | yes |
 | policy_documents | List of JSON IAM policy documents | list | `<list>` | no |
-| principals_arns | List of ARNs to allow assuming the role. Could be AWS accounts, Kops nodes, IAM users or groups | list | - | yes |
-| principals_services_arns | List of Services identifiers to allow assuming the role. | list | `<list>` | no |
+| principals | Map of service name as key and a list of ARNs to allow assuming the role as value. (e.g. map(`AWS`, list(`arn:aws:iam:::role/admin`))) | map | `<map>` | no |
 | role_description | The description of the IAM role that is visible in the IAM role manager | string | - | yes |
 | stage | Stage (e.g. `prod`, `dev`, `staging`) | string | - | yes |
 | tags | Additional tags (e.g. map(`BusinessUnit`,`XYZ`) | map | `<map>` | no |
+| use_fullname | Set 'true' to use `namespace-stage-name` for ecr repository name, else `name` | string | `true` | no |
 
 ## Outputs
 
