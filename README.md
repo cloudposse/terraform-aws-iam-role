@@ -132,6 +132,7 @@ The [`example`](./example) directory contains complete working examples with var
 | name | Name (e.g. `app` or `chamber`) | string | - | yes |
 | namespace | Namespace (e.g. `cp` or `cloudposse`) | string | - | yes |
 | policy_description | The description of the IAM policy that is visible in the IAM policy manager | string | - | yes |
+| policy_document_count | Number of policy documents (length of policy_documents list). | string | `1` | no |
 | policy_documents | List of JSON IAM policy documents | list | `<list>` | no |
 | principals | Map of service name as key and a list of ARNs to allow assuming the role as value. (e.g. map(`AWS`, list(`arn:aws:iam:::role/admin`))) | map | `<map>` | no |
 | role_description | The description of the IAM role that is visible in the IAM role manager | string | - | yes |
