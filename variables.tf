@@ -50,9 +50,8 @@ variable "policy_documents" {
 }
 
 variable "policy_document_count" {
-  type        = "string"
   description = "Number of policy documents (length of policy_documents list)."
-  default     = "1"
+  default     = 1
 }
 
 variable "max_session_duration" {
