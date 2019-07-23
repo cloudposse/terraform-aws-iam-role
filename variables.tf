@@ -49,6 +49,11 @@ variable "policy_documents" {
   default     = []
 }
 
+variable "policy_document_count" {
+  description = "Number of policy documents (length of policy_documents list)."
+  default     = 1
+}
+
 variable "max_session_duration" {
   default     = 3600
   description = "The maximum session duration (in seconds) for the role. Can have a value from 1 hour to 12 hours"
