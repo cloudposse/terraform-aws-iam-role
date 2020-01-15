@@ -1,50 +1,50 @@
 variable "namespace" {
-  type        = "string"
+  type        = string
   description = "Namespace (e.g. `cp` or `cloudposse`)"
 }
 
 variable "stage" {
-  type        = "string"
+  type        = string
   description = "Stage (e.g. `prod`, `dev`, `staging`)"
 }
 
 variable "name" {
-  type        = "string"
+  type        = string
   description = "Name (e.g. `app` or `chamber`)"
 }
 
 variable "use_fullname" {
-  type        = "string"
+  type        = string
   default     = "true"
   description = "Set 'true' to use `namespace-stage-name` for ecr repository name, else `name`"
 }
 
 variable "delimiter" {
-  type        = "string"
+  type        = string
   default     = "-"
   description = "Delimiter to be used between `namespace`, `stage`, `name` and `attributes`"
 }
 
 variable "attributes" {
-  type        = "list"
+  type        = list(string)
   default     = []
   description = "Additional attributes (e.g. `1`)"
 }
 
 variable "tags" {
-  type        = "map"
+  type        = map(string)
   default     = {}
   description = "Additional tags (e.g. map(`BusinessUnit`,`XYZ`)"
 }
 
 variable "principals" {
-  type        = "map"
+  type        = map(string)
   description = "Map of service name as key and a list of ARNs to allow assuming the role as value. (e.g. map(`AWS`, list(`arn:aws:iam:::role/admin`)))"
   default     = {}
 }
 
 variable "policy_documents" {
-  type        = "list"
+  type        = list(string)
   description = "List of JSON IAM policy documents"
   default     = []
 }
@@ -60,17 +60,18 @@ variable "max_session_duration" {
 }
 
 variable "enabled" {
-  type        = "string"
+  type        = string
   description = "Set to `false` to prevent the module from creating any resources"
   default     = "true"
 }
 
 variable "role_description" {
-  type        = "string"
+  type        = string
   description = "The description of the IAM role that is visible in the IAM role manager"
 }
 
 variable "policy_description" {
-  type        = "string"
+  type        = string
   description = "The description of the IAM policy that is visible in the IAM policy manager"
 }
+
