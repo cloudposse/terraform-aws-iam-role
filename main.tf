@@ -38,7 +38,7 @@ resource "aws_iam_role" "default" {
 
 module "aggregated_policy" {
   source           = "git::https://github.com/cloudposse/terraform-aws-iam-policy-document-aggregator.git?ref=tags/0.2.0"
-  source_documents = [var.policy_documents]
+  source_documents = var.policy_documents
 }
 
 resource "aws_iam_policy" "default" {
