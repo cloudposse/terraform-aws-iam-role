@@ -1,53 +1,11 @@
-module "kms_key" {
-  source    = "git::https://github.com/cloudposse/terraform-aws-kms-key.git?ref=0.11/master"
-  namespace = "cp"
-  stage     = "prod"
-  name      = "app"
-
-  tags = {
-    ManagedBy = "Terraform"
-  }
-
-  description             = "KMS key for Parameter Store"
-  deletion_window_in_days = 10
-  enable_key_rotation     = "true"
-  alias                   = "alias/parameter_store_key"
-}
-
-module "bucket" {
-  source  = "git::https://github.com/cloudposse/terraform-aws-s3-bucket.git?ref=0.11/master"
-  enabled = "true"
-
-  namespace = "cp"
-  stage     = "prod"
-  name      = "chamber"
-
-  tags = {
-    ManagedBy = "Terraform"
-  }
-
-  versioning_enabled = "false"
-  user_enabled       = "false"
-
-  sse_algorithm      = "aws:kms"
-  kms_master_key_arn = "${module.kms_key.key_arn}"
-}
-
 data "aws_iam_policy_document" "resource_full_access" {
   statement {
     sid       = "FullAccess"
     effect    = "Allow"
-    resources = ["${module.bucket.bucket_arn}/*"]
+    resources = ["*"]
 
     actions = [
-      "s3:PutObject",
-      "s3:PutObjectAcl",
-      "s3:GetObject",
-      "s3:DeleteObject",
-      "s3:ListBucket",
-      "s3:ListBucketMultipartUploads",
-      "s3:GetBucketLocation",
-      "s3:AbortMultipartUpload",
+      "sqs:GetQueueUrl",
     ]
   }
 }
@@ -57,11 +15,10 @@ data "aws_iam_policy_document" "base" {
     sid = "BaseAccess"
 
     actions = [
-      "s3:ListBucket",
-      "s3:ListBucketVersions",
+      "sqs:ListQueues",
     ]
 
-    resources = ["${module.bucket.bucket_arn}"]
+    resources = ["*"]
     effect    = "Allow"
   }
 }
@@ -69,12 +26,14 @@ data "aws_iam_policy_document" "base" {
 module "role" {
   source = "../"
 
-  enabled   = "true"
-  namespace = "cp"
-  stage     = "prod"
-  name      = "app"
+  enabled            = "true"
+  namespace          = "cp"
+  stage              = "test"
+  name               = "app"
+  policy_description = "sqs test"
+  role_description   = "allows access to sqs to list queues and get url"
 
-  principals = {}
+  principals = { "Service" = ["ec2.amazonaws.com"] }
 
   policy_documents = [
     "${data.aws_iam_policy_document.resource_full_access.json}",
