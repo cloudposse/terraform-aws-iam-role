@@ -18,9 +18,6 @@ github_repo: cloudposse/terraform-aws-iam-role
 
 # Badges to display
 badges:
-  - name: "Build Status"
-    image: "https://g.codefresh.io/api/badges/pipeline/cloudposse/cloudposse%2Fterraform-aws-iam-role%2Flint?type=cf-1"
-    url: "https://g.codefresh.io/public/accounts/cloudposse/pipelines/cloudposse/terraform-aws-iam-role/lint"
   - name: "Latest Release"
     image: "https://img.shields.io/github/release/cloudposse/terraform-aws-iam-role.svg"
     url: "https://github.com/cloudposse/terraform-aws-iam-role/releases/latest"
@@ -48,7 +45,7 @@ description: |-
 
 # How to use this project
 usage: |-
-  This example creates a role with the name `cp-prod-app` with permission to grant read-write access to S3 bucket,
+  This example creates a role with the name `eg-prod-app` with permission to grant read-write access to S3 bucket,
   and gives permission to the entities specified in `principals_arns` to assume the role.
 
   ```hcl
@@ -67,7 +64,7 @@ usage: |-
           "s3:ListBucket",
           "s3:ListBucketMultipartUploads",
           "s3:GetBucketLocation",
-          "s3:AbortMultipartUpload",
+          "s3:AbortMultipartUpload"
         ]
       }
     }
@@ -78,7 +75,7 @@ usage: |-
 
         actions = [
           "s3:ListBucket",
-          "s3:ListBucketVersions",
+          "s3:ListBucketVersions"
         ]
 
         resources = ["arn:aws:s3:::bucketname"]
@@ -89,8 +86,8 @@ usage: |-
     module "role" {
       source     = "git::https://github.com/cloudposse/terraform-aws-iam-role.git?ref=master"
 
-      enabled    = "true"
-      namespace = "cp"
+      enabled   = true
+      namespace = "eg"
       stage     = "prod"
       name      = "app"
 
@@ -102,14 +99,16 @@ usage: |-
       }
 
       policy_documents = [
-        "${data.aws_iam_policy_document.resource_full_access.json}",
-        "${data.aws_iam_policy_document.base.json}",
+        data.aws_iam_policy_document.resource_full_access.json,
+        data.aws_iam_policy_document.base.json
       ]
     }
   ```
 
-  ### Additional Examples
-  The [`example`](./example) directory contains complete working examples with variations of how to use the module.
+examples: |-
+  For a complete example, see [examples/complete](examples/complete).
+
+  For automated tests of the complete example using [bats](https://github.com/bats-core/bats-core) and [Terratest](https://github.com/gruntwork-io/terratest) (which tests and deploys the example on AWS), see [test](test).
 
 include:
   - "docs/terraform.md"
@@ -120,3 +119,7 @@ contributors:
     github: "goruha"
   - name: "Oscar Sullivan"
     github: "osulli"
+  - name: "Erik Osterman"
+    github: "osterman"
+  - name: "Andriy Knysh"
+    github: "aknysh"
