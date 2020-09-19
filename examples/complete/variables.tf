@@ -9,6 +9,6 @@ variable "use_fullname" {
 }
 
 variable "principals" {
-  type        = map(string)
+  type        = map(list(string))
   description = "Map of service name as key and a list of ARNs to allow assuming the role as value (e.g. map(`AWS`, list(`arn:aws:iam:::role/admin`)))"
 }

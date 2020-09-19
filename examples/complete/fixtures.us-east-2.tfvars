@@ -10,4 +10,6 @@ name = "iam-role-test"
 
 use_fullname = true
 
-principals = {}
+principals = {
+  "AWS" : ["*"]
+}

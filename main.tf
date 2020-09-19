@@ -6,10 +6,8 @@ data "aws_iam_policy_document" "assume_role" {
     actions = ["sts:AssumeRole"]
 
     principals {
-      type = element(keys(var.principals), count.index)
-      identifiers = [
-        var.principals[element(keys(var.principals), count.index)]
-      ]
+      type        = element(keys(var.principals), count.index)
+      identifiers = var.principals[element(keys(var.principals), count.index)]
     }
   }
 }

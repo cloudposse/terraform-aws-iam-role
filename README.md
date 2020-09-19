@@ -176,7 +176,7 @@ For automated tests of the complete example using [bats](https://github.com/bats
 | policy\_description | The description of the IAM policy that is visible in the IAM policy manager | `string` | n/a | yes |
 | policy\_document\_count | Number of policy documents (length of policy\_documents list) | `number` | `1` | no |
 | policy\_documents | List of JSON IAM policy documents | `list(string)` | `[]` | no |
-| principals | Map of service name as key and a list of ARNs to allow assuming the role as value (e.g. map(`AWS`, list(`arn:aws:iam:::role/admin`))) | `map(string)` | `{}` | no |
+| principals | Map of service name as key and a list of ARNs to allow assuming the role as value (e.g. map(`AWS`, list(`arn:aws:iam:::role/admin`))) | `map(list(string))` | `{}` | no |
 | regex\_replace\_chars | Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | role\_description | The description of the IAM role that is visible in the IAM role manager | `string` | n/a | yes |
 | stage | Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |

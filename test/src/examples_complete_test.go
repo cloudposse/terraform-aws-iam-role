@@ -52,4 +52,10 @@ func TestExamplesComplete(t *testing.T) {
 	expectedS3BucketId := "eg-test-iam-role-test-" + randId
 	// Verify we're getting back the outputs we expect
 	assert.Equal(t, expectedS3BucketId, s3BucketId)
+
+	// Run `terraform output` to get the value of an output variable
+	roleName := terraform.Output(t, terraformOptions, "role_name")
+	expectedroleName := "eg-test-iam-role-test-" + randId
+	// Verify we're getting back the outputs we expect
+	assert.Equal(t, expectedroleName, roleName)
 }
