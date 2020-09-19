@@ -41,6 +41,6 @@ resource "aws_iam_policy" "default" {
 
 resource "aws_iam_role_policy_attachment" "default" {
   count      = module.this.enabled && var.policy_document_count > 0 ? 1 : 0
-  role       = aws_iam_role.default.name
-  policy_arn = aws_iam_policy.default.arn
+  role       = join("", aws_iam_role.default.*.name)
+  policy_arn = join(aws_iam_policy.default.*.arn)
 }
