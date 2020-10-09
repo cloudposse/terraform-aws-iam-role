@@ -37,3 +37,9 @@ variable "policy_description" {
   type        = string
   description = "The description of the IAM policy that is visible in the IAM policy manager"
 }
+
+variable "assume_role_action" {
+  type        = string
+  default     = "sts:AssumeRole"
+  description = "The IAM action to be granted by the AssumeRole policy"
+}
