@@ -39,7 +39,7 @@ variable "policy_description" {
 }
 
 variable "assume_role_action" {
-  type = string
-  default = "sts:AssumeRole"
+  type        = string
+  default     = "sts:AssumeRole"
   description = "The IAM action to be granted by the AssumeRole policy"
 }
