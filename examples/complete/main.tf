@@ -3,7 +3,8 @@ provider "aws" {
 }
 
 module "kms_key" {
-  source = "git::https://github.com/cloudposse/terraform-aws-kms-key.git?ref=tags/0.7.0"
+  source  = "cloudposse/kms-key/aws"
+  version = "0.7.0"
 
   description             = "Test KMS key"
   deletion_window_in_days = 7
@@ -13,7 +14,8 @@ module "kms_key" {
 }
 
 module "bucket" {
-  source = "git::https://github.com/cloudposse/terraform-aws-s3-bucket.git?ref=tags/0.22.0"
+  source  = "cloudposse/s3-bucket/aws"
+  version = "0.22.0"
 
   user_enabled                 = false
   versioning_enabled           = false
