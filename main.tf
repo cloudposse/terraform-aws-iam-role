@@ -24,6 +24,7 @@ resource "aws_iam_role" "default" {
   assume_role_policy   = module.aggregated_assume_policy.result_document
   description          = var.role_description
   max_session_duration = var.max_session_duration
+  tags                 = module.this.tags
 }
 
 module "aggregated_policy" {
