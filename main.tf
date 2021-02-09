@@ -14,7 +14,7 @@ data "aws_iam_policy_document" "assume_role" {
 
 module "aggregated_assume_policy" {
   source           = "cloudposse/iam-policy-document-aggregator/aws"
-  version          = "0.6.0"
+  version          = "0.8.0"
   source_documents = data.aws_iam_policy_document.assume_role.*.json
 }
 
@@ -28,7 +28,7 @@ resource "aws_iam_role" "default" {
 
 module "aggregated_policy" {
   source           = "cloudposse/iam-policy-document-aggregator/aws"
-  version          = "0.6.0"
+  version          = "0.8.0"
   source_documents = var.policy_documents
 }
 
