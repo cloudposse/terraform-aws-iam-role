@@ -13,6 +13,23 @@
 |------|---------|
 | aws | >= 2.0 |
 
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| aggregated_assume_policy | cloudposse/iam-policy-document-aggregator/aws | 0.6.0 |
+| aggregated_policy | cloudposse/iam-policy-document-aggregator/aws | 0.6.0 |
+| this | cloudposse/label/null | 0.22.0 |
+
+## Resources
+
+| Name |
+|------|
+| [aws_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/2.0/docs/resources/iam_policy) |
+| [aws_iam_policy_document](https://registry.terraform.io/providers/hashicorp/aws/2.0/docs/data-sources/iam_policy_document) |
+| [aws_iam_role](https://registry.terraform.io/providers/hashicorp/aws/2.0/docs/resources/iam_role) |
+| [aws_iam_role_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/2.0/docs/resources/iam_role_policy_attachment) |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -47,5 +64,4 @@
 | id | The stable and unique string identifying the role |
 | name | The name of the IAM role created |
 | policy | Role policy document in json format. Outputs always, independent of `enabled` variable |
-
 <!-- markdownlint-restore -->
