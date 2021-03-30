@@ -13,8 +13,8 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 data "aws_iam_policy_document" "assume_role_aggregated" {
-  count = module.this.enabled ? 1 : 0
-  source_policy_documents = data.aws_iam_policy_document.assume_role.*.json
+  count                     = module.this.enabled ? 1 : 0
+  override_policy_documents = data.aws_iam_policy_document.assume_role.*.json
 }
 
 
@@ -28,8 +28,8 @@ resource "aws_iam_role" "default" {
 }
 
 data "aws_iam_policy_document" "default" {
-  count                   = module.this.enabled && var.policy_document_count > 0 ? 1 : 0
-  source_policy_documents = var.policy_documents
+  count                     = module.this.enabled && var.policy_document_count > 0 ? 1 : 0
+  override_policy_documents = var.policy_documents
 }
 
 
