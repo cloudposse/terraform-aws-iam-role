@@ -14,6 +14,6 @@ output "arn" {
 }
 
 output "policy" {
-  value       = module.aggregated_policy.result_document
+  value       = join("", data.aws_iam_policy_document.default.*.json)
   description = "Role policy document in json format. Outputs always, independent of `enabled` variable"
 }
