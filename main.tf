@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 data "aws_iam_policy_document" "assume_role_aggregated" {
-  count = module.this.enabled ? 1 : 0
+  count                   = module.this.enabled ? 1 : 0
   source_policy_documents = data.aws_iam_policy_document.assume_role.*.json
 }
 
