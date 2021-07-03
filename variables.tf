@@ -43,3 +43,9 @@ variable "assume_role_action" {
   default     = "sts:AssumeRole"
   description = "The IAM action to be granted by the AssumeRole policy"
 }
+
+variable "create_instance_profile" {
+  type = bool
+  default = false
+  description = "Create EC2 Instance Profile for the role"
+}
