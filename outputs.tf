@@ -17,3 +17,8 @@ output "policy" {
   value       = join("", data.aws_iam_policy_document.default.*.json)
   description = "Role policy document in json format. Outputs always, independent of `enabled` variable"
 }
+
+output "instance_profile" {
+  description = "Name of the ec2 profile (if enabled)"
+  value       = join("", aws_iam_instance_profile.default.*.name)
+}
