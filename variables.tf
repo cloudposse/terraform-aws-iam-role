@@ -45,7 +45,7 @@ variable "assume_role_action" {
 }
 
 variable "create_instance_profile" {
-  type = bool
-  default = false
+  type        = bool
+  default     = false
   description = "Create EC2 Instance Profile for the role"
 }

@@ -1,3 +1,4 @@
+
 <!-- markdownlint-disable -->
 # terraform-aws-iam-role [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-iam-role.svg)](https://github.com/cloudposse/terraform-aws-iam-role/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 <!-- markdownlint-restore -->
@@ -35,7 +36,6 @@ A Terraform module that creates IAM role with provided JSON IAM polices document
 because [`output.policy`](https://github.com/cloudposse/terraform-aws-iam-role/tree/init#outputs) always aggregates [`var.policy_documents`](https://github.com/cloudposse/terraform-aws-iam-role/tree/init#inputs)
 * List size [`var.policy_documents`](https://github.com/cloudposse/terraform-aws-iam-role/tree/init#inputs) [limited to 10](https://github.com/cloudposse/terraform-aws-iam-policy-document-aggregator#inputs)
 
-
 ---
 
 This project is part of our comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
@@ -60,7 +60,6 @@ It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 
 
 We literally have [*hundreds of terraform modules*][terraform_modules] that are Open Source and well-maintained. Check them out!
-
 
 
 
@@ -198,10 +197,10 @@ For automated tests of the complete example using [bats](https://github.com/bats
 
 | Name | Type |
 |------|------|
+| [aws_iam_instance_profile.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) | resource |
 | [aws_iam_policy.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy_attachment.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_iam_instance_profile.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/aws_iam_instance_profile) | resource |
 | [aws_iam_policy_document.assume_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.assume_role_aggregated](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -214,6 +213,7 @@ For automated tests of the complete example using [bats](https://github.com/bats
 | <a name="input_assume_role_action"></a> [assume\_role\_action](#input\_assume\_role\_action) | The IAM action to be granted by the AssumeRole policy | `string` | `"sts:AssumeRole"` | no |
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | Additional attributes (e.g. `1`) | `list(string)` | `[]` | no |
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {}<br>}</pre> | no |
+| <a name="input_create_instance_profile"></a> [create\_instance\_profile](#input\_create\_instance\_profile) | Create EC2 Instance Profile for the role | `bool` | `false` | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
@@ -228,7 +228,6 @@ For automated tests of the complete example using [bats](https://github.com/bats
 | <a name="input_policy_document_count"></a> [policy\_document\_count](#input\_policy\_document\_count) | Number of policy documents (length of policy\_documents list) | `number` | `1` | no |
 | <a name="input_policy_documents"></a> [policy\_documents](#input\_policy\_documents) | List of JSON IAM policy documents | `list(string)` | `[]` | no |
 | <a name="input_principals"></a> [principals](#input\_principals) | Map of service name as key and a list of ARNs to allow assuming the role as value (e.g. map(`AWS`, list(`arn:aws:iam:::role/admin`))) | `map(list(string))` | `{}` | no |
-| <a name="input_create_instance_profile"></a> [create_instance_profile](#input\_create_instance_profile) | Create an instance profile for the role | `bool` | `false` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | <a name="input_role_description"></a> [role\_description](#input\_role\_description) | The description of the IAM role that is visible in the IAM role manager | `string` | n/a | yes |
 | <a name="input_stage"></a> [stage](#input\_stage) | Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
@@ -241,6 +240,7 @@ For automated tests of the complete example using [bats](https://github.com/bats
 |------|-------------|
 | <a name="output_arn"></a> [arn](#output\_arn) | The Amazon Resource Name (ARN) specifying the role |
 | <a name="output_id"></a> [id](#output\_id) | The stable and unique string identifying the role |
+| <a name="output_instance_profile"></a> [instance\_profile](#output\_instance\_profile) | Name of the ec2 profile (if enabled) |
 | <a name="output_name"></a> [name](#output\_name) | The name of the IAM role created |
 | <a name="output_policy"></a> [policy](#output\_policy) | Role policy document in json format. Outputs always, independent of `enabled` variable |
 <!-- markdownlint-restore -->
@@ -254,14 +254,13 @@ Like this project? Please give it a ★ on [our GitHub](https://github.com/cloud
 Are you using this project or any of our other projects? Consider [leaving a testimonial][testimonial]. =)
 
 
+
 ## Related Projects
 
 Check out these related projects.
 
 - [terraform-aws-iam-policy-document-aggregator](https://github.com/cloudposse/terraform-aws-iam-policy-document-aggregator) - Terraform module to aggregate multiple IAM policy documents into single policy document
 - [terraform-aws-iam-chamber-s3-role](https://github.com/cloudposse/terraform-aws-iam-chamber-s3-role) - Terraform module to provision an IAM role with configurable permissions to access S3 as chamber backend
-
-
 
 ## Help
 
