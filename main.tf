@@ -47,7 +47,7 @@ resource "aws_iam_role_policy_attachment" "default" {
 }
 
 resource "aws_iam_instance_profile" "default" {
-  count = module.this.enabled && var.create_instance_profile ? 1 : 0
+  count = module.this.enabled && var.instance_profile_enabled ? 1 : 0
   name  = module.this.id
   role  = join("", aws_iam_role.default.*.name)
 }
