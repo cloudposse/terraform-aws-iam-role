@@ -44,7 +44,7 @@ variable "assume_role_action" {
   description = "The IAM action to be granted by the AssumeRole policy"
 }
 
-variable "create_instance_profile" {
+variable "instance_profile_enabled" {
   type        = bool
   default     = false
   description = "Create EC2 Instance Profile for the role"
