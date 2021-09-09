@@ -38,9 +38,9 @@ variable "policy_description" {
   description = "The description of the IAM policy that is visible in the IAM policy manager"
 }
 
-variable "assume_role_action" {
-  type        = string
-  default     = "sts:AssumeRole"
+variable "assume_role_actions" {
+  type        = list(string)
+  default     = ["sts:AssumeRole", "sts:TagSession"]
   description = "The IAM action to be granted by the AssumeRole policy"
 }
 

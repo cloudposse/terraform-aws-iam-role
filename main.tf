@@ -3,7 +3,7 @@ data "aws_iam_policy_document" "assume_role" {
 
   statement {
     effect  = "Allow"
-    actions = [var.assume_role_action]
+    actions = var.assume_role_actions
 
     principals {
       type        = element(keys(var.principals), count.index)
