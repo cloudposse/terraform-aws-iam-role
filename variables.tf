@@ -28,6 +28,12 @@ variable "max_session_duration" {
   description = "The maximum session duration (in seconds) for the role. Can have a value from 1 hour to 12 hours"
 }
 
+variable "permissions_boundary" {
+  type        = string
+  default     = ""
+  description = "ARN of the policy that is used to set the permissions boundary for the role"
+}
+
 variable "role_description" {
   type        = string
   description = "The description of the IAM role that is visible in the IAM role manager"

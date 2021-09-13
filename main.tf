@@ -24,6 +24,7 @@ resource "aws_iam_role" "default" {
   assume_role_policy   = join("", data.aws_iam_policy_document.assume_role_aggregated.*.json)
   description          = var.role_description
   max_session_duration = var.max_session_duration
+  permissions_boundary = var.permissions_boundary
   tags                 = module.this.tags
 }
 
