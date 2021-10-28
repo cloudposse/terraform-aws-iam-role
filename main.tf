@@ -13,9 +13,9 @@ data "aws_iam_policy_document" "assume_role" {
     dynamic "condition" {
       for_each = var.assume_role_conditions
       content {
-        test = condition.value.test
+        test     = condition.value.test
         variable = condition.value.variable
-        values = condition.value.values
+        values   = condition.value.values
       }
     }
   }

@@ -58,10 +58,10 @@ variable "assume_role_actions" {
 }
 
 variable "assume_role_conditions" {
-  type        = list(object({
-    test = string
+  type = list(object({
+    test     = string
     variable = string
-    values = list(string)
+    values   = list(string)
   }))
   description = "List of conditions for the assume role policy"
   default     = []
