@@ -22,6 +22,12 @@ variable "policy_document_count" {
   default     = 1
 }
 
+variable "managed_policy_arns" {
+  type        = set(string)
+  description = "List of managed policies to attach to created role"
+  default     = []
+}
+
 variable "max_session_duration" {
   type        = number
   default     = 3600
@@ -41,6 +47,7 @@ variable "role_description" {
 
 variable "policy_description" {
   type        = string
+  default     = ""
   description = "The description of the IAM policy that is visible in the IAM policy manager"
 }
 
@@ -48,6 +55,16 @@ variable "assume_role_actions" {
   type        = list(string)
   default     = ["sts:AssumeRole", "sts:TagSession"]
   description = "The IAM action to be granted by the AssumeRole policy"
+}
+
+variable "assume_role_conditions" {
+  type = list(object({
+    test     = string
+    variable = string
+    values   = list(string)
+  }))
+  description = "List of conditions for the assume role policy"
+  default     = []
 }
 
 variable "instance_profile_enabled" {

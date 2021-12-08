@@ -9,6 +9,15 @@ data "aws_iam_policy_document" "assume_role" {
       type        = element(keys(var.principals), count.index)
       identifiers = var.principals[element(keys(var.principals), count.index)]
     }
+
+    dynamic "condition" {
+      for_each = var.assume_role_conditions
+      content {
+        test     = condition.value.test
+        variable = condition.value.variable
+        values   = condition.value.values
+      }
+    }
   }
 }
 
@@ -46,6 +55,13 @@ resource "aws_iam_role_policy_attachment" "default" {
   role       = join("", aws_iam_role.default.*.name)
   policy_arn = join("", aws_iam_policy.default.*.arn)
 }
+
+resource "aws_iam_role_policy_attachment" "managed" {
+  for_each   = module.this.enabled ? var.managed_policy_arns : []
+  role       = join("", aws_iam_role.default.*.name)
+  policy_arn = each.key
+}
+
 
 resource "aws_iam_instance_profile" "default" {
   count = module.this.enabled && var.instance_profile_enabled ? 1 : 0
