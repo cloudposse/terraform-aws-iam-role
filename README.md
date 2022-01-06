@@ -104,61 +104,61 @@ and gives permission to the entities specified in `principals_arns` to assume th
 
 ```hcl
 
-  data "aws_iam_policy_document" "resource_full_access" {
-    statement {
-      sid       = "FullAccess"
-      effect    = "Allow"
-      resources = ["arn:aws:s3:::bucketname/path/*"]
+data "aws_iam_policy_document" "resource_full_access" {
+  statement {
+    sid       = "FullAccess"
+    effect    = "Allow"
+    resources = ["arn:aws:s3:::bucketname/path/*"]
 
-      actions = [
-        "s3:PutObject",
-        "s3:PutObjectAcl",
-        "s3:GetObject",
-        "s3:DeleteObject",
-        "s3:ListBucket",
-        "s3:ListBucketMultipartUploads",
-        "s3:GetBucketLocation",
-        "s3:AbortMultipartUpload"
-      ]
-    }
-  }
-
-  data "aws_iam_policy_document" "base" {
-    statement {
-      sid = "BaseAccess"
-
-      actions = [
-        "s3:ListBucket",
-        "s3:ListBucketVersions"
-      ]
-
-      resources = ["arn:aws:s3:::bucketname"]
-      effect    = "Allow"
-    }
-  }
-
-  module "role" {
-    source = "cloudposse/iam-role/aws"
-    # Cloud Posse recommends pinning every module to a specific version
-    # version     = "x.x.x"
-
-    enabled   = true
-    namespace = "eg"
-    stage     = "prod"
-    name      = "app"
-
-    policy_description = "Allow S3 FullAccess"
-    role_description   = "IAM role with permissions to perform actions on S3 resources"
-
-    principals = {
-      AWS = ["arn:aws:iam::123456789012:role/workers"]
-    }
-
-    policy_documents = [
-      data.aws_iam_policy_document.resource_full_access.json,
-      data.aws_iam_policy_document.base.json
+    actions = [
+      "s3:PutObject",
+      "s3:PutObjectAcl",
+      "s3:GetObject",
+      "s3:DeleteObject",
+      "s3:ListBucket",
+      "s3:ListBucketMultipartUploads",
+      "s3:GetBucketLocation",
+      "s3:AbortMultipartUpload"
     ]
   }
+}
+
+data "aws_iam_policy_document" "base" {
+  statement {
+    sid = "BaseAccess"
+
+    actions = [
+      "s3:ListBucket",
+      "s3:ListBucketVersions"
+    ]
+
+    resources = ["arn:aws:s3:::bucketname"]
+    effect    = "Allow"
+  }
+}
+
+module "role" {
+  source = "cloudposse/iam-role/aws"
+  # Cloud Posse recommends pinning every module to a specific version
+  # version     = "x.x.x"
+
+  enabled   = true
+  namespace = "eg"
+  stage     = "prod"
+  name      = "app"
+
+  policy_description = "Allow S3 FullAccess"
+  role_description   = "IAM role with permissions to perform actions on S3 resources"
+
+  principals = {
+    AWS = ["arn:aws:iam::123456789012:role/workers"]
+  }
+
+  policy_documents = [
+    data.aws_iam_policy_document.resource_full_access.json,
+    data.aws_iam_policy_document.base.json
+  ]
+}
 ```
 
 
@@ -397,8 +397,8 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 ### Contributors
 
 <!-- markdownlint-disable -->
-|  [![Igor Rodionov][goruha_avatar]][goruha_homepage]<br/>[Igor Rodionov][goruha_homepage] | [![Oscar Sullivan][osulli_avatar]][osulli_homepage]<br/>[Oscar Sullivan][osulli_homepage] | [![Erik Osterman][osterman_avatar]][osterman_homepage]<br/>[Erik Osterman][osterman_homepage] | [![Andriy Knysh][aknysh_avatar]][aknysh_homepage]<br/>[Andriy Knysh][aknysh_homepage] |
-|---|---|---|---|
+|  [![Igor Rodionov][goruha_avatar]][goruha_homepage]<br/>[Igor Rodionov][goruha_homepage] | [![Oscar Sullivan][osulli_avatar]][osulli_homepage]<br/>[Oscar Sullivan][osulli_homepage] | [![Erik Osterman][osterman_avatar]][osterman_homepage]<br/>[Erik Osterman][osterman_homepage] | [![Andriy Knysh][aknysh_avatar]][aknysh_homepage]<br/>[Andriy Knysh][aknysh_homepage] | [![RB][nitrocode_avatar]][nitrocode_homepage]<br/>[RB][nitrocode_homepage] |
+|---|---|---|---|---|
 <!-- markdownlint-restore -->
 
   [goruha_homepage]: https://github.com/goruha
@@ -409,6 +409,8 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [osterman_avatar]: https://img.cloudposse.com/150x150/https://github.com/osterman.png
   [aknysh_homepage]: https://github.com/aknysh
   [aknysh_avatar]: https://img.cloudposse.com/150x150/https://github.com/aknysh.png
+  [nitrocode_homepage]: https://github.com/nitrocode
+  [nitrocode_avatar]: https://img.cloudposse.com/150x150/https://github.com/nitrocode.png
 
 [![README Footer][readme_footer_img]][readme_footer_link]
 [![Beacon][beacon]][website]
