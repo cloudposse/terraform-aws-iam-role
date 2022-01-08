@@ -11,3 +11,6 @@ jobs:
     steps:
       - name: "Handle common commands and run tests"
         uses: cloudposse/github-action-terraform-ci@e88e42530712878eaefad1dde0b62ef1e5d45388
+        with:
+          token: ${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}
+          reaction-token: ${{ secrets.GITHUB_TOKEN }}
