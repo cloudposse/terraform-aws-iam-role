@@ -6,7 +6,7 @@ on:
   push:
 
 jobs:
-  default and test:
+  default-and-test:
     runs-on: ubuntu-latest
     steps:
       - name: "Handle common commands and run tests"
