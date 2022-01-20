@@ -76,3 +76,9 @@ variable "instance_profile_enabled" {
   default     = false
   description = "Create EC2 Instance Profile for the role"
 }
+
+variable "path" {
+  type        = string
+  description = "Path to the role and policy. See [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html) for more information."
+  default     = "/"
+}
