@@ -82,3 +82,9 @@ variable "path" {
   description = "Path to the role and policy. See [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html) for more information."
   default     = "/"
 }
+
+variable "role_tags_enabled" {
+  type        = string
+  description = "Enable/disable tags on IAM roles"
+  default     = true
+}

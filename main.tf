@@ -34,7 +34,7 @@ resource "aws_iam_role" "default" {
   max_session_duration = var.max_session_duration
   permissions_boundary = var.permissions_boundary
   path                 = var.path
-  tags                 = module.this.tags
+  tags                 = var.role_tags_enabled ? module.this.tags : null
 }
 
 data "aws_iam_policy_document" "default" {
