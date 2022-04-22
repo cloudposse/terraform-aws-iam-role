@@ -34,6 +34,6 @@ func testNoChanges(t *testing.T, terraformDir string) {
 	plan := terraform.Plan(t, terraformOptions)
 	planContainsNoChanges := strings.Contains(plan, "No changes.") || strings.Contains(plan, "0 to add, 0 to change, 0 to destroy.")
 
-	assert.True(t, plan, planContainsNoChanges)
+	assert.True(t, planContainsNoChanges)
 }
 
