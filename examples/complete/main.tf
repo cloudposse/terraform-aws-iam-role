@@ -1,10 +1,14 @@
+locals {
+  enabled = module.this.enabled
+}
+
 provider "aws" {
   region = var.region
 }
 
 module "kms_key" {
   source  = "cloudposse/kms-key/aws"
-  version = "0.7.0"
+  version = "0.12.1"
 
   description             = "Test KMS key"
   deletion_window_in_days = 7
@@ -14,8 +18,9 @@ module "kms_key" {
 }
 
 module "bucket" {
+  # any version greater than 0.47.0 will require the root module to have required_version >= 1.0 in its versions.tf
   source  = "cloudposse/s3-bucket/aws"
-  version = "0.22.0"
+  version = "0.47.0"
 
   user_enabled                 = false
   versioning_enabled           = false
@@ -28,6 +33,8 @@ module "bucket" {
 }
 
 data "aws_iam_policy_document" "resource_full_access" {
+  count = local.enabled ? 1 : 0
+
   statement {
     sid       = "FullAccess"
     effect    = "Allow"
@@ -47,6 +54,8 @@ data "aws_iam_policy_document" "resource_full_access" {
 }
 
 data "aws_iam_policy_document" "base" {
+  count = local.enabled ? 1 : 0
+
   statement {
     sid    = "BaseAccess"
     effect = "Allow"
@@ -69,8 +78,8 @@ module "role" {
   use_fullname = var.use_fullname
 
   policy_documents = [
-    data.aws_iam_policy_document.resource_full_access.json,
-    data.aws_iam_policy_document.base.json
+    join("", data.aws_iam_policy_document.resource_full_access.*.json),
+    join("", data.aws_iam_policy_document.base.*.json),
   ]
 
   policy_document_count = 2
