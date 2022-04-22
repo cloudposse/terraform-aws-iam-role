@@ -1,4 +1,4 @@
-module github.com/cloudposse/terraform-aws-lambda-function
+module github.com/cloudposse/terraform-aws-iam-role
 
 go 1.16
 
