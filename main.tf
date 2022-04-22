@@ -1,5 +1,5 @@
 data "aws_iam_policy_document" "assume_role" {
-  count = length(keys(var.principals))
+  count = module.this.enabled ? length(keys(var.principals)) : 0
 
   statement {
     effect  = "Allow"
