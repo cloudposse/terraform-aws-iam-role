@@ -26,9 +26,13 @@ data "aws_iam_policy_document" "assume_role_aggregated" {
   override_policy_documents = data.aws_iam_policy_document.assume_role.*.json
 }
 
+locals {
+  name = var.name != "" ? var.name : module.this.id
+}
+
 resource "aws_iam_role" "default" {
   count                = module.this.enabled ? 1 : 0
-  name                 = var.use_fullname ? module.this.id : module.this.name
+  name                 = var.use_fullname ? local.name : module.this.name
   assume_role_policy   = join("", data.aws_iam_policy_document.assume_role_aggregated.*.json)
   description          = var.role_description
   max_session_duration = var.max_session_duration
@@ -44,7 +48,7 @@ data "aws_iam_policy_document" "default" {
 
 resource "aws_iam_policy" "default" {
   count       = module.this.enabled && var.policy_document_count > 0 ? 1 : 0
-  name        = module.this.id
+  name        = local.name
   description = var.policy_description
   policy      = join("", data.aws_iam_policy_document.default.*.json)
   path        = var.path
@@ -65,6 +69,6 @@ resource "aws_iam_role_policy_attachment" "managed" {
 
 resource "aws_iam_instance_profile" "default" {
   count = module.this.enabled && var.instance_profile_enabled ? 1 : 0
-  name  = module.this.id
+  name  = local.name
   role  = join("", aws_iam_role.default.*.name)
 }

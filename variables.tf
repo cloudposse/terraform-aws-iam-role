@@ -2,10 +2,16 @@ variable "use_fullname" {
   type        = bool
   default     = true
   description = <<-EOT
-  If set to 'true' then the full ID for the IAM role name (e.g. `[var.namespace]-[var.environment]-[var.stage]`) will be used.
+  If set to 'true' then `var.name` (if set) will be used, if not the full ID for the IAM role name (e.g. `[var.namespace]-[var.environment]-[var.stage]`) will be used.
 
-  Otherwise, `var.name` will be used for the IAM role name.
+  Otherwise, `module.this.name` will be used for the IAM role name.
   EOT
+}
+
+variable "name" {
+  type        = string
+  default     = ""
+  description = "Name to use for all resources, if left unset, `module.this.id` will be used."
 }
 
 variable "principals" {
