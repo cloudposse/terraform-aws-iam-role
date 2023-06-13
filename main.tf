@@ -23,13 +23,13 @@ data "aws_iam_policy_document" "assume_role" {
 
 data "aws_iam_policy_document" "assume_role_aggregated" {
   count                     = module.this.enabled ? 1 : 0
-  override_policy_documents = data.aws_iam_policy_document.assume_role.*.json
+  override_policy_documents = data.aws_iam_policy_document.assume_role[*].json
 }
 
 resource "aws_iam_role" "default" {
   count                = module.this.enabled ? 1 : 0
   name                 = var.use_fullname ? module.this.id : module.this.name
-  assume_role_policy   = join("", data.aws_iam_policy_document.assume_role_aggregated.*.json)
+  assume_role_policy   = join("", data.aws_iam_policy_document.assume_role_aggregated[*].json)
   description          = var.role_description
   max_session_duration = var.max_session_duration
   permissions_boundary = var.permissions_boundary
@@ -46,25 +46,25 @@ resource "aws_iam_policy" "default" {
   count       = module.this.enabled && var.policy_document_count > 0 ? 1 : 0
   name        = var.policy_name != "" && var.policy_name != null ? var.policy_name : module.this.id
   description = var.policy_description
-  policy      = join("", data.aws_iam_policy_document.default.*.json)
+  policy      = join("", data.aws_iam_policy_document.default[*].json)
   path        = var.path
   tags        = var.tags_enabled ? module.this.tags : null
 }
 
 resource "aws_iam_role_policy_attachment" "default" {
   count      = module.this.enabled && var.policy_document_count > 0 ? 1 : 0
-  role       = join("", aws_iam_role.default.*.name)
-  policy_arn = join("", aws_iam_policy.default.*.arn)
+  role       = join("", aws_iam_role.default[*].name)
+  policy_arn = join("", aws_iam_policy.default[*].arn)
 }
 
 resource "aws_iam_role_policy_attachment" "managed" {
   for_each   = module.this.enabled ? var.managed_policy_arns : []
-  role       = join("", aws_iam_role.default.*.name)
+  role       = join("", aws_iam_role.default[*].name)
   policy_arn = each.key
 }
 
 resource "aws_iam_instance_profile" "default" {
   count = module.this.enabled && var.instance_profile_enabled ? 1 : 0
   name  = module.this.id
-  role  = join("", aws_iam_role.default.*.name)
+  role  = join("", aws_iam_role.default[*].name)
 }

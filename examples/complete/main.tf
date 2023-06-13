@@ -20,7 +20,7 @@ module "kms_key" {
 module "bucket" {
   # any version greater than 0.47.0 will require the root module to have required_version >= 1.0 in its versions.tf
   source  = "cloudposse/s3-bucket/aws"
-  version = "0.47.0"
+  version = "3.1.2"
 
   user_enabled                 = false
   versioning_enabled           = false
@@ -78,8 +78,8 @@ module "role" {
   use_fullname = var.use_fullname
 
   policy_documents = [
-    join("", data.aws_iam_policy_document.resource_full_access.*.json),
-    join("", data.aws_iam_policy_document.base.*.json),
+    join("", data.aws_iam_policy_document.resource_full_access[*].json),
+    join("", data.aws_iam_policy_document.base[*].json),
   ]
 
   policy_document_count = 2
