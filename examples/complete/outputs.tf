@@ -1,25 +1,25 @@
 output "role_name" {
-  value       = coalese(module.role.name, null)
+  value       = coalesce(module.role.name, null)
   description = "The name of the created role"
 }
 
 output "role_id" {
-  value       = coalese(module.role.id, null)
+  value       = coalesce(module.role.id, null)
   description = "The stable and unique string identifying the role"
 }
 
 output "role_arn" {
-  value       = coalese(module.role.arn, null)
+  value       = coalesce(module.role.arn, null)
   description = "The Amazon Resource Name (ARN) specifying the role"
 }
 
 output "role_policy" {
-  value       = coalese(module.role.policy, null)
+  value       = coalesce(module.role.policy, null)
   description = "The Amazon Resource Name (ARN) specifying the role"
 }
 
 output "key_arn" {
-  value       = coalese(module.kms_key.key_arn, null)
+  value       = coalesce(module.kms_key.key_arn, null)
   description = "KMS key ARN"
 }
 
