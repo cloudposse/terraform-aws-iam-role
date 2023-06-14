@@ -59,7 +59,7 @@ output "user_name" {
 }
 
 output "user_arn" {
-  value       = one([module.bucket.user_arn])
+  value = one([module.bucket.user_arn])
 }
 
 output "user_unique_id" {
