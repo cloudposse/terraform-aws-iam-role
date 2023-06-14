@@ -59,7 +59,8 @@ output "user_name" {
 }
 
 output "user_arn" {
-  value = one([module.bucket.user_arn])
+  value       = one([module.bucket.user_arn])
+  description = "The ARN assigned by AWS for the user"
 }
 
 output "user_unique_id" {
