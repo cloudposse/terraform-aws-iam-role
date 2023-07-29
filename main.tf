@@ -27,10 +27,10 @@ data "aws_iam_policy_document" "assume_role_aggregated" {
 }
 
 module "role_name" {
-  source  = "cloudposse/label/null"
-  version = "0.25.0"
+  source          = "cloudposse/label/null"
+  version         = "0.25.0"
   id_length_limit = 64
-  context = module.this.context
+  context         = module.this.context
 }
 
 resource "aws_iam_role" "default" {
