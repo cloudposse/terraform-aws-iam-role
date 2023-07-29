@@ -23,13 +23,20 @@ data "aws_iam_policy_document" "assume_role" {
 
 data "aws_iam_policy_document" "assume_role_aggregated" {
   count                     = module.this.enabled ? 1 : 0
-  override_policy_documents = data.aws_iam_policy_document.assume_role.*.json
+  override_policy_documents = data.aws_iam_policy_document.assume_role[*].json
+}
+
+module "role_name" {
+  source          = "cloudposse/label/null"
+  version         = "0.25.0"
+  id_length_limit = 64
+  context         = module.this.context
 }
 
 resource "aws_iam_role" "default" {
   count                = module.this.enabled ? 1 : 0
-  name                 = var.use_fullname ? module.this.id : module.this.name
-  assume_role_policy   = join("", data.aws_iam_policy_document.assume_role_aggregated.*.json)
+  name                 = var.use_fullname ? module.role_name.id : module.this.name
+  assume_role_policy   = join("", data.aws_iam_policy_document.assume_role_aggregated[*].json)
   description          = var.role_description
   max_session_duration = var.max_session_duration
   permissions_boundary = var.permissions_boundary

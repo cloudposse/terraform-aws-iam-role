@@ -94,10 +94,6 @@ We highly recommend that in your code you pin the version to the exact version y
 using so that your infrastructure remains stable, and update versions in a
 systematic way so that they do not catch you by surprise.
 
-Also, because of a bug in the Terraform registry ([hashicorp/terraform#21417](https://github.com/hashicorp/terraform/issues/21417)),
-the registry shows many of our inputs as required when in fact they are optional.
-The table below correctly indicates which inputs are required.
-
 
 This example creates a role with the name `eg-prod-app` with permission to grant read-write access to S3 bucket,
 and gives permission to the entities specified in `principals_arns` to assume the role.
@@ -190,6 +186,7 @@ For automated tests of the complete example using [bats](https://github.com/bats
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_role_name"></a> [role\_name](#module\_role\_name) | cloudposse/label/null | 0.25.0 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
