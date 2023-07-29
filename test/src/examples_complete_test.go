@@ -58,9 +58,6 @@ func TestExamplesComplete(t *testing.T) {
 	expectedroleName := "eg-test-iam-role-test-" + randId
 	// Verify we're getting back the outputs we expect
 	assert.Equal(t, expectedroleName, roleName)
-}
 
-// Test the Terraform module in examples/complete doesn't attempt to create resources with enabled=false.
-func TestExamplesCompleteDisabled(t *testing.T) {
 	testNoChanges(t, "../../examples/complete")
 }
