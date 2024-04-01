@@ -1,0 +1,7 @@
+# Upstream changes from _extends are only recognized when modifications are made to this file in the default branch.
+_extends: .github
+repository:
+  name: terraform-aws-iam-role
+  description: A Terraform module that creates IAM role with provided JSON IAM polices documents.
+  homepage: https://cloudposse.com/accelerate
+  topics: ""
