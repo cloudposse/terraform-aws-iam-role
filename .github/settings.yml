@@ -5,3 +5,4 @@ repository:
   description: A Terraform module that creates IAM role with provided JSON IAM polices documents.
   homepage: https://cloudposse.com/accelerate
   topics: ""
+
