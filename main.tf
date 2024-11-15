@@ -44,13 +44,22 @@ resource "aws_iam_role" "default" {
   tags                 = var.tags_enabled ? module.this.tags : null
 }
 
+resource "aws_iam_role_policy" "default" {
+  count = module.this.enabled && var.policy_document_count > 0 && var.inline_policy_enabled ? 1 : 0
+
+  name = var.policy_name != "" && var.policy_name != null ? var.policy_name : module.this.id
+  role = join("", aws_iam_role.default.*.name)
+
+  policy = join("", data.aws_iam_policy_document.default.*.json)
+}
+
 data "aws_iam_policy_document" "default" {
   count                     = module.this.enabled && var.policy_document_count > 0 ? 1 : 0
   override_policy_documents = var.policy_documents
 }
 
 resource "aws_iam_policy" "default" {
-  count       = module.this.enabled && var.policy_document_count > 0 ? 1 : 0
+  count       = module.this.enabled && var.policy_document_count > 0 && !var.inline_policy_enabled ? 1 : 0
   name        = var.policy_name != "" && var.policy_name != null ? var.policy_name : module.this.id
   description = var.policy_description
   policy      = join("", data.aws_iam_policy_document.default.*.json)
@@ -59,7 +68,7 @@ resource "aws_iam_policy" "default" {
 }
 
 resource "aws_iam_role_policy_attachment" "default" {
-  count      = module.this.enabled && var.policy_document_count > 0 ? 1 : 0
+  count      = module.this.enabled && var.policy_document_count > 0 && !var.inline_policy_enabled ? 1 : 0
   role       = join("", aws_iam_role.default.*.name)
   policy_arn = join("", aws_iam_policy.default.*.arn)
 }
