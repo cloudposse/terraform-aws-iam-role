@@ -85,6 +85,7 @@ module "role" {
   policy_document_count = 2
   policy_description    = "Test IAM policy"
   role_description      = "Test IAM role"
+  inline_policy_enabled = var.inline_policy_enabled
 
   context = module.this.context
 }
