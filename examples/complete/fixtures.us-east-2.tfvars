@@ -11,3 +11,5 @@ use_fullname = true
 principals = {
   "AWS" : ["*"]
 }
+
+inline_policy_enabled = true

@@ -12,3 +12,9 @@ variable "principals" {
   type        = map(list(string))
   description = "Map of service name as key and a list of ARNs to allow assuming the role as value (e.g. map(`AWS`, list(`arn:aws:iam:::role/admin`)))"
 }
+
+variable "inline_policy_enabled" {
+  type        = bool
+  description = "Whether or not to enable an inline policy instead of a reusable managed policy"
+  default     = false
+}
