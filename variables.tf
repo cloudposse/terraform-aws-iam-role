@@ -89,12 +89,6 @@ variable "path" {
   default     = "/"
 }
 
-variable "tags_enabled" {
-  type        = bool
-  description = "Enable/disable tags on IAM roles and policies"
-  default     = true
-}
-
 variable "inline_policy_enabled" {
   type        = bool
   description = "Whether or not to enable an inline policy instead of a reusable managed policy"
