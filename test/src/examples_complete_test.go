@@ -56,6 +56,12 @@ func TestExamplesComplete(t *testing.T) {
 	expectedroleName := "eg-test-iam-role-test-" + randId
 	// Verify we're getting back the outputs we expect
 	assert.Equal(t, expectedroleName, roleName)
+
+	// Run `terraform output` to get the value of an output variable
+	assumeRolePolicy := terraform.Output(t, terraformOptions, "assume_role_policy")
+	// Verify the assume role policy contains the expected condition for sts:ExternalId
+	assert.Contains(t, assumeRolePolicy, "\"sts:ExternalId\"")
+	assert.Contains(t, assumeRolePolicy, "test-external-id")
 }
 
 // Test the Terraform module in examples/complete doesn't attempt to create resources with enabled=false.

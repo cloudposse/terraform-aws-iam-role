@@ -68,13 +68,13 @@ variable "assume_role_actions" {
 }
 
 variable "assume_role_conditions" {
-  type = list(object({
+  type = map(list(object({
     test     = string
     variable = string
     values   = list(string)
-  }))
-  description = "List of conditions for the assume role policy"
-  default     = []
+  })))
+  description = "Map of principal type to list of conditions for the assume role policy. E.g. { AWS = [], Federated = [...] }"
+  default     = {}
 }
 
 variable "instance_profile_enabled" {

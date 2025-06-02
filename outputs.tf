@@ -22,3 +22,8 @@ output "instance_profile" {
   description = "Name of the ec2 profile (if enabled)"
   value       = join("", aws_iam_instance_profile.default.*.name)
 }
+
+output "assume_role_policy" {
+  value       = join("", data.aws_iam_policy_document.assume_role_aggregated[*].json)
+  description = "The assume role policy document in JSON format."
+}

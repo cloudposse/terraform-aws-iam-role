@@ -13,3 +13,13 @@ principals = {
 }
 
 inline_policy_enabled = true
+
+assume_role_conditions = {
+  AWS = [
+    {
+      test     = "StringEquals"
+      variable = "sts:ExternalId"
+      values   = ["test-external-id"]
+    }
+  ]
+}

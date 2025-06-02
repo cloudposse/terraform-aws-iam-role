@@ -12,7 +12,7 @@ data "aws_iam_policy_document" "assume_role" {
     }
 
     dynamic "condition" {
-      for_each = var.assume_role_conditions
+      for_each = lookup(var.assume_role_conditions, element(keys(var.principals), count.index), [])
       content {
         test     = condition.value.test
         variable = condition.value.variable
