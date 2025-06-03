@@ -1,5 +1,5 @@
 data "aws_iam_policy_document" "assume_role" {
-  count = module.this.enabled ? length(keys(var.principals)) : 0
+  count = var.assume_role_policy_document == "" && module.this.enabled ? length(keys(var.principals)) : 0
 
   statement {
     effect  = "Allow"
@@ -23,7 +23,7 @@ data "aws_iam_policy_document" "assume_role" {
 
 data "aws_iam_policy_document" "assume_role_aggregated" {
   count                     = module.this.enabled ? 1 : 0
-  override_policy_documents = data.aws_iam_policy_document.assume_role[*].json
+  override_policy_documents = var.assume_role_policy_document != "" ? [var.assume_role_policy_document] : data.aws_iam_policy_document.assume_role[*].json
 }
 
 module "role_name" {
