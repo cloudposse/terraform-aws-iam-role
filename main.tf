@@ -1,6 +1,6 @@
 data "aws_iam_policy_document" "assume_role" {
   # if the module is enabled and we don't use a `assume_role_policy` then enable the aws_iam_policy_document datasource
-  count = module.this.enabled && var.assume_role_policy_document == null  ? length(keys(var.principals)) : 0
+  count = module.this.enabled && var.assume_role_policy == null ? length(keys(var.principals)) : 0
 
   statement {
     effect  = "Allow"

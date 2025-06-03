@@ -65,7 +65,7 @@ func TestExamplesCompleteDisabled(t *testing.T) {
 	testNoChanges(t, "../../examples/complete")
 }
 
-// Test the module with a custom assume_role_policy_document
+// Test the module with a custom assume_role_policy
 func TestExamplesAssumeRolePolicyDocument(t *testing.T) {
 	t.Parallel()
 
@@ -90,7 +90,7 @@ func TestExamplesAssumeRolePolicyDocument(t *testing.T) {
 		Upgrade:      true,
 		VarFiles:     []string{"fixtures.us-east-2.tfvars"},
 		Vars: map[string]interface{}{
-			"attributes":                  attributes,
+			"attributes":         attributes,
 			"assume_role_policy": trustPolicy,
 		},
 	}

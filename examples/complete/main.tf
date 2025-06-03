@@ -87,7 +87,7 @@ module "role" {
   role_description      = "Test IAM role"
   inline_policy_enabled = var.inline_policy_enabled
 
-  assume_role_policy_document = var.assume_role_policy_document
+  assume_role_policy = var.assume_role_policy
 
   context = module.this.context
 }
