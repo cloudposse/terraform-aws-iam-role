@@ -4,7 +4,7 @@ data "aws_iam_policy_document" "assume_role" {
 
   statement {
     effect  = "Allow"
-    actions = lookup(var.assume_role_actions, element(keys(var.principals), count.index), ["sts:AssumeRole", "sts:TagSession"])
+    actions = lookup(var.assume_role_actions, element(keys(var.principals), count.index))
 
     principals {
       type        = element(keys(var.principals), count.index)

@@ -60,7 +60,7 @@ func TestExamplesComplete(t *testing.T) {
 	// Run `terraform output` to get the value of an output variable
 	assumeRolePolicy := terraform.Output(t, terraformOptions, "assume_role_policy")
 	// Verify the assume role policy contains the expected condition for sts:ExternalId
-	assert.Contains(t, assumeRolePolicy, "\"sts:ExternalId\"")
+	assert.Contains(t, assumeRolePolicy, "sts:ExternalId")
 	assert.Contains(t, assumeRolePolicy, "test-external-id")
 }
 

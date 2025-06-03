@@ -64,7 +64,7 @@ variable "policy_description" {
 variable "assume_role_actions" {
   type        = map(list(string))
   description = "Map of principal type to list of actions for the assume role policy. E.g. { AWS = [\"sts:AssumeRole\"], Federated = [\"sts:AssumeRoleWithSAML\"] }"
-  default     = {}
+  default     = { AWS = ["sts:AssumeRole", "sts:TagSession"] }
 }
 
 variable "assume_role_conditions" {
