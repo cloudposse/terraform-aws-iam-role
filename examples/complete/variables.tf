@@ -19,8 +19,8 @@ variable "inline_policy_enabled" {
   default     = false
 }
 
-variable "assume_role_policy_document" {
+variable "assume_role_policy" {
   type        = string
   description = "A JSON assume role policy document. If set, this will be used as the assume role policy and the principals, assume_role_conditions, and assume_role_actions variables will be ignored."
-  default     = ""
+  default     = null
 }

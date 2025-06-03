@@ -91,7 +91,7 @@ func TestExamplesAssumeRolePolicyDocument(t *testing.T) {
 		VarFiles:     []string{"fixtures.us-east-2.tfvars"},
 		Vars: map[string]interface{}{
 			"attributes":                  attributes,
-			"assume_role_policy_document": trustPolicy,
+			"assume_role_policy": trustPolicy,
 		},
 	}
 
