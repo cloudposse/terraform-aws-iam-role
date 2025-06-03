@@ -23,3 +23,7 @@ assume_role_conditions = {
     }
   ]
 }
+
+assume_role_actions = {
+  AWS = ["sts:AssumeRole", "sts:TagSession"]
+}
