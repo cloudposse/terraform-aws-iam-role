@@ -12,8 +12,6 @@ import (
 
 // Test the Terraform module in examples/complete using Terratest.
 func TestExamplesComplete(t *testing.T) {
-	t.Parallel()
-
 	rand.Seed(time.Now().UnixNano())
 
 	randId := strconv.Itoa(rand.Intn(100000))
@@ -63,4 +61,41 @@ func TestExamplesComplete(t *testing.T) {
 // Test the Terraform module in examples/complete doesn't attempt to create resources with enabled=false.
 func TestExamplesCompleteDisabled(t *testing.T) {
 	testNoChanges(t, "../../examples/complete")
+}
+
+// Test the module with a custom assume_role_policy
+func TestExamplesAssumeRolePolicyDocument(t *testing.T) {
+
+	rand.Seed(time.Now().UnixNano())
+	randId := strconv.Itoa(rand.Intn(100000))
+	attributes := []string{randId}
+
+	// Minimal valid trust policy
+	trustPolicy := `{
+	  "Version": "2012-10-17",
+	  "Statement": [
+	    {
+	      "Effect": "Allow",
+	      "Principal": {"Service": "ec2.amazonaws.com"},
+	      "Action": "sts:AssumeRole"
+	    }
+	  ]
+	}`
+
+	terraformOptions := &terraform.Options{
+		TerraformDir: "../../examples/complete",
+		Upgrade:      true,
+		VarFiles:     []string{"fixtures.us-east-2.tfvars"},
+		Vars: map[string]interface{}{
+			"attributes":         attributes,
+			"assume_role_policy": trustPolicy,
+		},
+	}
+
+	defer terraform.Destroy(t, terraformOptions)
+	terraform.InitAndApply(t, terraformOptions)
+
+	roleName := terraform.Output(t, terraformOptions, "role_name")
+	expectedRoleName := "eg-test-iam-role-test-" + randId
+	assert.Equal(t, expectedRoleName, roleName)
 }
