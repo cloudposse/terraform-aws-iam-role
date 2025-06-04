@@ -12,8 +12,6 @@ import (
 
 // Test the Terraform module in examples/complete using Terratest.
 func TestExamplesComplete(t *testing.T) {
-	t.Parallel()
-
 	rand.Seed(time.Now().UnixNano())
 
 	randId := strconv.Itoa(rand.Intn(100000))
@@ -67,7 +65,6 @@ func TestExamplesCompleteDisabled(t *testing.T) {
 
 // Test the module with a custom assume_role_policy
 func TestExamplesAssumeRolePolicyDocument(t *testing.T) {
-	t.Parallel()
 
 	rand.Seed(time.Now().UnixNano())
 	randId := strconv.Itoa(rand.Intn(100000))
