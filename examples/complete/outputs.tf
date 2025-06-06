@@ -67,3 +67,8 @@ output "user_unique_id" {
   value       = module.bucket.user_unique_id
   description = "The user unique ID assigned by AWS"
 }
+
+output "assume_role_policy" {
+  value       = module.role.assume_role_policy
+  description = "The assume role policy document in JSON format."
+}
