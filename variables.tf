@@ -62,19 +62,19 @@ variable "policy_description" {
 }
 
 variable "assume_role_actions" {
-  type        = list(string)
-  default     = ["sts:AssumeRole", "sts:TagSession"]
-  description = "The IAM action to be granted by the AssumeRole policy"
+  type        = map(list(string))
+  description = "Map of principal type to list of actions for the assume role policy. E.g. { AWS = [\"sts:AssumeRole\"], Federated = [\"sts:AssumeRoleWithSAML\"] }"
+  default     = { AWS = ["sts:AssumeRole", "sts:TagSession"] }
 }
 
 variable "assume_role_conditions" {
-  type = list(object({
+  type = map(list(object({
     test     = string
     variable = string
     values   = list(string)
-  }))
-  description = "List of conditions for the assume role policy"
-  default     = []
+  })))
+  description = "Map of principal type to list of conditions for the assume role policy. E.g. { AWS = [], Federated = [...] }"
+  default     = {}
 }
 
 variable "instance_profile_enabled" {
