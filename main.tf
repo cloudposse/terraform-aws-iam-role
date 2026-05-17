@@ -81,7 +81,7 @@ resource "aws_iam_role_policy_attachment" "default" {
 resource "aws_iam_role_policy_attachment" "managed" {
   for_each   = module.this.enabled ? local.managed_policy_arns_map : {}
   role       = one(aws_iam_role.default[*].name)
-  policy_arn = each.key
+  policy_arn = each.value
 }
 
 resource "aws_iam_instance_profile" "default" {
