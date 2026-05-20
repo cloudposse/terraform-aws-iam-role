@@ -28,8 +28,22 @@ variable "policy_document_count" {
 
 variable "managed_policy_arns" {
   type        = set(string)
-  description = "List of managed policies to attach to created role"
+  description = <<-EOT
+    A list of IAM Policy ARNs to attach to the created role.
+    Changes to the list will have ripple effects, so use `managed_policy_arns_map` if possible.
+    EOT
   default     = []
+}
+
+variable "managed_policy_arns_map" {
+  type        = map(string)
+  description = <<-EOT
+    A map of name to IAM Policy ARNs to attach to the created role.
+    The names are arbitrary, but must be known at plan time. The purpose of the name
+    is so that changes to one ARN do not cause a ripple effect on the other ARNs.
+    If you cannot provide unique names known at plan time, use `managed_policy_arns` instead.
+    EOT
+  default     = {}
 }
 
 variable "max_session_duration" {

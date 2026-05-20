@@ -1,3 +1,7 @@
+locals {
+  managed_policy_arns_map = merge({ for i, a in var.managed_policy_arns : format("_#%v_", i) => a }, var.managed_policy_arns_map)
+}
+
 data "aws_iam_policy_document" "assume_role" {
   # if the module is enabled and we don't use a `assume_role_policy` then enable the aws_iam_policy_document datasource
   count = module.this.enabled && var.assume_role_policy == null ? length(keys(var.principals)) : 0
@@ -37,7 +41,7 @@ module "role_name" {
 resource "aws_iam_role" "default" {
   count                = module.this.enabled ? 1 : 0
   name                 = var.use_fullname ? module.role_name.id : module.this.name
-  assume_role_policy   = join("", data.aws_iam_policy_document.assume_role_aggregated[*].json)
+  assume_role_policy   = one(data.aws_iam_policy_document.assume_role_aggregated[*].json)
   description          = var.role_description
   max_session_duration = var.max_session_duration
   permissions_boundary = var.permissions_boundary
@@ -49,9 +53,9 @@ resource "aws_iam_role_policy" "default" {
   count = module.this.enabled && var.policy_document_count > 0 && var.inline_policy_enabled ? 1 : 0
 
   name = var.policy_name != "" && var.policy_name != null ? var.policy_name : module.this.id
-  role = join("", aws_iam_role.default[*].name)
+  role = one(aws_iam_role.default[*].name)
 
-  policy = join("", data.aws_iam_policy_document.default[*].json)
+  policy = one(data.aws_iam_policy_document.default[*].json)
 }
 
 data "aws_iam_policy_document" "default" {
@@ -63,26 +67,26 @@ resource "aws_iam_policy" "default" {
   count       = module.this.enabled && var.policy_document_count > 0 && !var.inline_policy_enabled ? 1 : 0
   name        = var.policy_name != "" && var.policy_name != null ? var.policy_name : module.this.id
   description = var.policy_description
-  policy      = join("", data.aws_iam_policy_document.default[*].json)
+  policy      = one(data.aws_iam_policy_document.default[*].json)
   path        = var.path
   tags        = module.this.tags
 }
 
 resource "aws_iam_role_policy_attachment" "default" {
   count      = module.this.enabled && var.policy_document_count > 0 && !var.inline_policy_enabled ? 1 : 0
-  role       = join("", aws_iam_role.default[*].name)
-  policy_arn = join("", aws_iam_policy.default[*].arn)
+  role       = one(aws_iam_role.default[*].name)
+  policy_arn = one(aws_iam_policy.default[*].arn)
 }
 
 resource "aws_iam_role_policy_attachment" "managed" {
-  for_each   = module.this.enabled ? var.managed_policy_arns : []
-  role       = join("", aws_iam_role.default[*].name)
-  policy_arn = each.key
+  for_each   = module.this.enabled ? local.managed_policy_arns_map : {}
+  role       = one(aws_iam_role.default[*].name)
+  policy_arn = each.value
 }
 
 resource "aws_iam_instance_profile" "default" {
   count = module.this.enabled && var.instance_profile_enabled ? 1 : 0
   name  = module.this.id
-  role  = join("", aws_iam_role.default[*].name)
+  role  = one(aws_iam_role.default[*].name)
   tags  = module.this.tags
 }

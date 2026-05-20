@@ -71,6 +71,12 @@ data "aws_iam_policy_document" "base" {
   }
 }
 
+resource "aws_iam_policy" "base_as_managed" {
+  count  = local.enabled ? 1 : 0
+  name   = module.this.id
+  policy = one(data.aws_iam_policy_document.base[*].json)
+}
+
 module "role" {
   source = "../.."
 
@@ -78,9 +84,13 @@ module "role" {
   use_fullname = var.use_fullname
 
   policy_documents = [
-    join("", data.aws_iam_policy_document.resource_full_access.*.json),
-    join("", data.aws_iam_policy_document.base.*.json),
+    one(data.aws_iam_policy_document.resource_full_access[*].json),
+    one(data.aws_iam_policy_document.base[*].json),
   ]
+
+  managed_policy_arns_map = {
+    "base" = one(aws_iam_policy.base_as_managed[*].arn)
+  }
 
   policy_document_count = 2
   policy_description    = "Test IAM policy"
