@@ -72,7 +72,7 @@ data "aws_iam_policy_document" "base" {
 }
 
 resource "aws_iam_policy" "base_as_managed" {
-  count = local.enabled ? 1 : 0
+  count  = local.enabled ? 1 : 0
   name   = module.this.id
   policy = one(data.aws_iam_policy_document.base[*].json)
 }
